@@ -7,7 +7,7 @@
 <body>
 
 	<nav th:fragment="user"
-		class="navbar navbar-expand-lg navbar-light bg-light">
+		class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
 
 		<a class="navbar-brand" href="#" th:href="@{/}"
 			th:text="#{global.brand.title}">Anh Văn Mobile</a>
@@ -43,7 +43,7 @@
 
 
 	<nav th:fragment="admin"
-		class="navbar navbar-expand-lg navbar-light bg-light">
+		class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
 		<a class="navbar-brand" th:href="@{/}" th:text="#{global.brand.title}">Anh
 			Văn Mobile</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"

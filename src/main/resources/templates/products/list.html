@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="" xmlns:layout=""
+	layout:decorate="~{layouts/user-layout}">
+<head>
+<meta charset="UTF-8">
+<title>Sản phẩm</title>
+</head>
+<body>
+	<div layout:fragment="content" class="container pt-5 pb-5">
+		<h1>Sản phẩm</h1>
+		<hr>
+		<div class="card-group row">
+			<div class="col-lg-3 col-md-4 col-sm-6 mb-4" th:each="prod : ${products}">
+				<div class="card h-100">
+					<div class="card-header">
+						<img class="card-img-top" th:src="@{${prod.thumbnail}}"
+							th:alt="${prod.name}" th:title="${prod.name}">
+					</div>
+					<div class="card-body">
+						<h5 class="card-title" th:text="${prod.name}">Iphone X</h5>
+						<p class="card-text">
+							<span class="badge badge-danger"
+								th:utext="${#numbers.formatInteger(prod.price, 3, 'POINT')} + ' <sup>đ</sup>'">1.000</span>
+						</p>
+						<p class="card-text text-justify"
+							th:text="${prod.shortDescription}">iPhone X mang trên mình
+							thiết kế hoàn toàn mới với màn hình Super Retina viền cực mỏng và
+							trang bị nhiều công nghệ hiện đại như nhận diện khuôn mặt Face
+							ID, sạc pin nhanh và sạc không dây cùng khả năng chống nước bụi
+							cao cấp.</p>
+					</div>
+					<div class="card-footer">
+						<a href="#" class="btn btn-primary btn-block">Xem chi tiết</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<nav aria-label="page" th:remove=" ${pages.size()<=1} ? all : none ">
+			<ul class="pagination">
+				<li class="page-item" th:each="page: ${pages}" ><a
+					class="page-link" th:href="@{/products(page=${page})}"
+					th:text="${page}">1</a></li>
+			</ul>
+		</nav>
+	</div>
+</body>
+</html>

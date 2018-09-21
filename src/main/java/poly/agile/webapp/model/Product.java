@@ -39,17 +39,17 @@ public class Product implements Serializable {
 	private Integer price;
 	
 	@Column(name = "SHORT_DESCRIPTION")
-	private String shortDesc;
+	private String shortDescription;
 
 	@ManyToOne
 	@JoinColumn(name = "BRAND_ID")
 	private Brand brand;
 
-	@OneToMany(mappedBy = "product")
+	@OneToMany(mappedBy = "product", cascade=CascadeType.ALL)
 	private List<ProductSpec> productSpecs;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "product")
+	@OneToMany(mappedBy = "product", cascade=CascadeType.ALL)
 	private List<OrderLine> orderLines;
 
 }

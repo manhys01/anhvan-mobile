@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://wwww.thymeleaf.org" xmlns:layout=""
+	layout:decorate="~{layouts/admin-layout}">
+<head>
+<title>Brand</title>
+</head>
+<body>
+	
+	<div layout:fragment="content" class="container pt-5 pb-5">
+		<div class="row">
+			<button id="create-btn" class="btn btn-large btn-primary mb-2">Create brand</button>
+			<table class="table table-sm table-striped table-bordered">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Brand name</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="brand : ${brands}">
+						<td th:text="${brand.id}">ID</td>
+						<td th:text="${brand.name}">name</td>
+						<td>
+							<button th:attr="data-id=${brand.id},data-name=${brand.name}"
+								class="btn btn-warning edit-btn">Sửa</button>
+							<button th:attr="data-id=${brand.id},data-name=${brand.name}"
+								class="btn btn-danger remove-btn">Xóa</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div th:replace="~{/admin/brands/modal :: create}"></div>
+		<div th:replace="~{/admin/brands/modal :: update}"></div>
+	</div>
+	
+	
+
+	<th:block layout:fragment="script">
+		<script>
+			$(document).ready(function() {
+				$("#create-btn").click(function(){
+					$("#createBrandModal").modal("show");
+				});
+				
+				
+				
+				$(".edit-btn").click(function() {
+					var id = $(this).attr("data-id");
+					var name = $(this).attr("data-name");
+					$("#brandId").val(id);
+					$("#brandName").val(name);
+					$("#updateBrandModal").modal("show");
+				});
+				
+				$(".edit-btn").click(function() {
+					var id = $(this).attr("data-id");
+					var name = $(this).attr("data-name");
+					$("#um-brandId").val(id);
+					$("#um-brandName").val(name);
+					$("#updateBrandModal").modal("show");
+				});
+			});
+		</script>
+	</th:block>
+</body>
+</html>
