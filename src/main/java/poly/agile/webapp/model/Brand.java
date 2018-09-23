@@ -27,7 +27,7 @@ public class Brand implements Serializable {
 	private String name;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "brand")
+	@OneToMany(mappedBy = "brand", cascade=CascadeType.ALL)
 	private List<Product> products;
 
 	public Brand(String name) {

@@ -27,8 +27,9 @@ public class ProductListController {
 			pages.add(i);
 		}
 		model.addAttribute("products", list);
+		model.addAttribute("productPage", true);
 		model.addAttribute("pages", pages);
 		return "products/list";
 	}
-
+	
 }

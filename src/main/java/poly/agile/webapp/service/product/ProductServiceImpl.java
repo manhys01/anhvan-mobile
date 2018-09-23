@@ -30,6 +30,7 @@ public class ProductServiceImpl implements ProductService {
 		return repository.save(object);
 	}
 
+	
 	@Override
 	public boolean delete(Product object) {
 		try {
@@ -55,5 +56,10 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public long totalPages() {
 		return (long) Math.ceil(repository.count() / 8.0);
+	}
+
+	@Override
+	public List<ProductDTO> newProducts() {
+		return repository.findFiveLastestProducts();
 	}
 }

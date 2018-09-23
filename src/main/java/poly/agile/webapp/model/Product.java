@@ -1,18 +1,29 @@
 package poly.agile.webapp.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
-import java.util.List;
-
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @ToString(exclude= {"orderLines"})
 public class Product implements Serializable {
@@ -40,6 +51,9 @@ public class Product implements Serializable {
 	
 	@Column(name = "SHORT_DESCRIPTION")
 	private String shortDescription;
+	
+	@Column(name="CREATED_TIME", insertable=false, updatable=false)
+	private Date createdTime;
 
 	@ManyToOne
 	@JoinColumn(name = "BRAND_ID")
@@ -51,5 +65,6 @@ public class Product implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "product", cascade=CascadeType.ALL)
 	private List<OrderLine> orderLines;
+	
 
 }

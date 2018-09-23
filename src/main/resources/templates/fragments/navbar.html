@@ -20,19 +20,22 @@
 
 		<div class="collapse navbar-collapse" id="navbarText">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
+				<li class="nav-item" th:classappend="${homePage} ? 'active'">
 					<a class="nav-link" href="#" th:href="@{/}"
-						th:text="#{user.navbar.home}"> Home </a>
+						th:text="#{user.navbar.home}"> Trang chủ </a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item"
+					th:classappend="${aboutPage} ? 'active'">
 					<a class="nav-link" href="#" th:href="@{/about}"
 						th:text="#{user.navbar.about}"> Giới thiệu </a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item"
+					th:classappend="${productPage} ? 'active'">
 					<a class="nav-link" href="#" th:href="@{/products}"
 						th:text="#{user.navbar.product}"> Sản phẩm </a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item"
+					th:classappend="${contactPage} ? 'active'">
 					<a class="nav-link" href="#" th:href="@{/contact}"
 						th:text="#{user.navbar.contact}"> Liên hệ </a>
 				</li>

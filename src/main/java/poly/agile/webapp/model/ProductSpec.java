@@ -3,6 +3,7 @@ package poly.agile.webapp.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -39,7 +40,7 @@ public class ProductSpec implements Serializable {
 	@JoinColumn(name="SPECIFICATION_ID")
 	private Specification specification;
 
-	@OneToMany(mappedBy="productSpec")
+	@OneToMany(mappedBy="productSpec", cascade=CascadeType.ALL)
 	private List<ProductSpecDetail> productSpecDetails;
 
 }

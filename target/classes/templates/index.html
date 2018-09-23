@@ -5,9 +5,8 @@
 <title>Trang chủ</title>
 </head>
 <body>
-	<div layout:fragment="content" class="container pt-5 pb-5">
-		<h1>Trang chủ</h1>
-		<hr>
+	<div layout:fragment="content">
+		<div th:replace="~{/home/carousel :: carousel}"></div>
 		
 	</div>
 </body>
