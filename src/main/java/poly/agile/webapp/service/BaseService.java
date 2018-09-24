@@ -8,7 +8,7 @@ public interface BaseService<T, ID> {
 	
 	T update(T object);
 	
-	boolean remove(T object);
+	boolean delete(T object);
 	
 	T findById(ID id);
 	

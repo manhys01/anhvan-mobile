@@ -1,83 +1,55 @@
 package poly.agile.webapp.controller.admin.brand;
 
-import javax.validation.Valid;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import poly.agile.webapp.model.Brand;
 import poly.agile.webapp.service.brand.BrandService;
 
-@Controller
+@RestController
 @RequestMapping("/admin/brands")
-@SessionAttributes(value = { "brand" })
 public class BrandController {
 
 	@Autowired
 	private BrandService service;
 
 	@GetMapping
-	public String all(Model model) {
-		model.addAttribute("brands", service.findAll());
-		return "admin/brands/list";
+	public List<Brand> all() {
+		return service.findAll();
 	}
 
-	@GetMapping("/add")
-	public String addBrand() {
-		return "admin/brands/add";
-	}
-
-	@GetMapping("/edit/{id}")
-	public String editBrand(@PathVariable("id") Integer id, Model model) {
-		model.addAttribute("brand", service.findById(id));
-		return "admin/brands/edit";
-	}
-
-	@PostMapping("/save")
-	public String saveBrand(@Valid @ModelAttribute("brand") Brand brand, Errors errors, SessionStatus status) {
-		if (errors.hasErrors()) {
-			return "admin/brands/add";
-		}
-		Brand created = service.create(brand);
-		if (created == null) {
-			errors.reject("404");
-			return "admin/brands/add";
-		}
-		status.setComplete();
-		return "redirect:/admin/brands";
+	@PostMapping
+	public Brand newBrand(@RequestBody Brand brand) {
+		return service.create(brand);
 	}
 	
-	@PostMapping("/update")
-	public String replaceBrand(@Valid @ModelAttribute("brand") Brand brand, Errors errors, SessionStatus status) {
-		if (errors.hasErrors()) {
-			return "admin/brands/edit";
-		}
-		Brand created = service.update(brand);
-		if (created == null) {
-			errors.reject("404");
-			return "admin/brands/edit";
-		}
-		status.setComplete();
-		return "redirect:/admin/brands";
+	@GetMapping("/{id}")
+	public Brand one(@PathVariable Integer id) {
+		return service.findById(id);	
+	}
+	
+	@PutMapping("/{id}")
+	public Brand replaceBrand(@RequestBody Brand brand, @PathVariable Integer id) {
+		return service.update(brand);
+	}
+	
+	@DeleteMapping("/{id}")
+	public boolean deleteBrand(@PathVariable Integer id) {
+		return service.delete(service.findById(id));
 	}
 
-	@PostMapping("/remove/{id}")
-	public @ResponseBody boolean removeBrand(@PathVariable Integer id) {
-		return service.remove(service.findById(id));
-	}
+	/*@ModelAttribute("brands")
+	public List<Brand> all() {
+		return service.findAll();
+	}*/
 
-	@ModelAttribute
-	public Brand getBrand() {
-		return new Brand();
-	}
 }

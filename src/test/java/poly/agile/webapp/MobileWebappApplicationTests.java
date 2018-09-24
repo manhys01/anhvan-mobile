@@ -28,13 +28,14 @@ public class MobileWebappApplicationTests {
 	public void contextLoads() {
 	}
 	
+	@Ignore
 	@Test
 	public void testDeleteProduct() {
-		boolean delete = service.remove(service.findById(5));
+		Integer id = 1;
+		boolean delete = service.delete(service.findById(id));
 		assertTrue(delete);
 	}
 	
-	@Ignore
 	@Test
 	public void testDeleteBrand() {
 		Brand brand = brandRepo.getOne(1);

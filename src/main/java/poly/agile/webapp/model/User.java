@@ -1,25 +1,16 @@
 package poly.agile.webapp.model;
 
 import java.io.Serializable;
+import javax.persistence.*;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -40,7 +31,7 @@ public class User implements Serializable {
 
 	private String address;
 
-	private Date birthDate;
+	private Date birthdate;
 
 	private Boolean enabled;
 

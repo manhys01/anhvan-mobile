@@ -25,7 +25,7 @@ public class BrandServiceImpl implements BrandService {
 	}
 
 	@Override
-	public boolean remove(Brand o) {
+	public boolean delete(Brand o) {
 		try {
 			repository.delete(o);
 			return true;

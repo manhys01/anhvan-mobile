@@ -1,29 +1,17 @@
 package poly.agile.webapp.model;
 
 import java.io.Serializable;
-import java.util.List;
+import javax.persistence.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+
+import java.util.List;
 
 
 @Entity
 @Table(name="order_status")
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@Data
 @NoArgsConstructor
 public class OrderStatus implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -31,14 +19,13 @@ public class OrderStatus implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ORDER_STATUS_ID")
-	private Integer id;
+	private byte orderStatusId;
 
 	@Column(name="ORDER_STATUS_NAME")
-	private String name;
+	private String orderStatusName;
 
-	@EqualsAndHashCode.Exclude
-	@ToString.Exclude
-	@OneToMany(mappedBy="status")
+	@OneToMany(mappedBy="orderStatus")
 	private List<Order> orders;
+
 
 }

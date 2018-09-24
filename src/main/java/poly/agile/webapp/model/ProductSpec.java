@@ -32,11 +32,11 @@ public class ProductSpec implements Serializable {
 	private Integer id;
 
 	@JsonIgnore
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne
 	@JoinColumn(name="PRODUCT_ID")
 	private Product product;
 
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne
 	@JoinColumn(name="SPECIFICATION_ID")
 	private Specification specification;
 

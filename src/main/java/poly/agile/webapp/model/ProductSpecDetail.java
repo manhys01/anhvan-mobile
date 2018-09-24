@@ -26,7 +26,7 @@ public class ProductSpecDetail implements Serializable {
 	private String value;
 
 	@JsonIgnore
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne
 	@JoinColumn(name = "PROD_SPEC_ID")
 	private ProductSpec productSpec;
 

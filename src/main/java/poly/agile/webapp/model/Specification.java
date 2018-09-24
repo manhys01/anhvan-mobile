@@ -25,7 +25,7 @@ public class Specification implements Serializable {
 	private String name;
 
 	@JsonIgnore
-	@OneToMany(mappedBy="specification", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="specification")
 	private List<ProductSpec> productSpecs;
 
 }

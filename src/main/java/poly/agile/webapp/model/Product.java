@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,11 +19,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString(exclude= {"orderLines"})
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -43,26 +44,27 @@ public class Product implements Serializable {
 	private Integer qtyInStock;
 
 	private String thumbnail;
-
+	
 	private Boolean enabled;
 
 	private Integer price;
-
+	
 	@Column(name = "SHORT_DESCRIPTION")
 	private String shortDescription;
-
-	@Column(name = "CREATED_TIME", insertable = false, updatable = false)
+	
+	@Column(name="CREATED_TIME", insertable=false, updatable=false)
 	private Date createdTime;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne
 	@JoinColumn(name = "BRAND_ID")
 	private Brand brand;
 
-	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "product", cascade=CascadeType.ALL)
 	private List<ProductSpec> productSpecs;
-
+	
 	@JsonIgnore
-	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "product", cascade=CascadeType.ALL)
 	private List<OrderLine> orderLines;
+	
 
 }
