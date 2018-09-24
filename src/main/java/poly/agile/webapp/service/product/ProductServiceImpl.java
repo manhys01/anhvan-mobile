@@ -32,11 +32,12 @@ public class ProductServiceImpl implements ProductService {
 
 	
 	@Override
-	public boolean delete(Product object) {
+	public boolean remove(Product object) {
 		try {
 			repository.delete(object);
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
