@@ -4,7 +4,9 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Date;
 import java.util.List;
@@ -38,12 +40,14 @@ public class Order implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name="ORDER_STATUS_ID")
-	private OrderStatus orderStatus;
+	private OrderStatus status;
 
 	@ManyToOne
 	@JoinColumn(name="USER_ID")
 	private User user;
 
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude
 	@OneToMany(mappedBy="order")
 	private List<OrderLine> orderLines;
 

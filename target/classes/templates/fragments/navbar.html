@@ -24,18 +24,15 @@
 					<a class="nav-link" href="#" th:href="@{/}"
 						th:text="#{user.navbar.home}"> Trang chủ </a>
 				</li>
-				<li class="nav-item"
-					th:classappend="${aboutPage} ? 'active'">
+				<li class="nav-item" th:classappend="${aboutPage} ? 'active'">
 					<a class="nav-link" href="#" th:href="@{/about}"
 						th:text="#{user.navbar.about}"> Giới thiệu </a>
 				</li>
-				<li class="nav-item"
-					th:classappend="${productPage} ? 'active'">
+				<li class="nav-item" th:classappend="${productPage} ? 'active'">
 					<a class="nav-link" href="#" th:href="@{/products}"
 						th:text="#{user.navbar.product}"> Sản phẩm </a>
 				</li>
-				<li class="nav-item"
-					th:classappend="${contactPage} ? 'active'">
+				<li class="nav-item" th:classappend="${contactPage} ? 'active'">
 					<a class="nav-link" href="#" th:href="@{/contact}"
 						th:text="#{user.navbar.contact}"> Liên hệ </a>
 				</li>
@@ -55,25 +52,32 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarText">
-			<ul class="navbar-nav mr-auto">
+			<ul class="navbar-nav">
 				<li class="nav-item active">
 					<a class="nav-link" href="#" th:href="@{/admin/dashboard}"
 						th:text="#{admin.navbar.dashboard}"> Trang tổng hợp </a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#" th:href="@{/admin/user-manager}"
-						th:text="#{admin.navbar.usermgr}"> Quản lý sản phẩm </a>
+					<a class="nav-link" href="#" th:href="@{/admin/users}"
+						th:text="#{admin.navbar.user}"> QL Sản Phẩm </a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#" th:href="@{/admin/order-manager}"
-						th:text="#{admin.navbar.ordermgr}"> Quản lý đơn hàng </a>
+					<a class="nav-link" href="#" th:href="@{/admin/orders}"
+						th:text="#{admin.navbar.order}"> QL Đơn Hàng </a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#" th:href="@{/admin/product-manager}"
-						th:text="#{admin.navbar.productmgr}"> Quản lý sản phẩm </a>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#"
+						id="productDropdownMenuLink" role="button" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"
+						th:text="#{admin.navbar.product}"> QL sản phẩm </a>
+					<div class="dropdown-menu"
+						aria-labelledby="productDropdownMenuLink">
+						<a class="dropdown-item" th:href="@{/admin/brands}">Thương hiệu</a>
+						<a class="dropdown-item" th:href="@{/admin/products}">Sản phẩm</a>
+						<a class="dropdown-item" th:href="@{/admin/product/specifications}">Thông số kỹ thuật</a>
+					</div>
 				</li>
 			</ul>
-			<span class="navbar-text"> </span>
 		</div>
 	</nav>
 
