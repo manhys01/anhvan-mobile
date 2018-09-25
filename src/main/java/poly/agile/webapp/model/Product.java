@@ -14,6 +14,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -33,22 +36,30 @@ public class Product implements Serializable {
 	@Column(name = "PRODUCT_ID")
 	private Integer id;
 
-	@Column(name = "PRODUCT_NAME")
+	@NotBlank
+	@Column(name = "PRODUCT_NAME", unique = true, length = 255)
 	private String name;
 
-	@Column(name = "PRODUCT_UNIT")
+	@Column(name = "PRODUCT_UNIT", length = 45)
 	private String unit;
 
+	@Min(value = 0)
+	@Max(value = Long.MAX_VALUE)
 	@Column(name = "QUANTITY_IN_STOCK")
 	private Integer qtyInStock;
 
+	@Column(name = "THUMBNAIL", length = 255)
 	private String thumbnail;
 
+	@Column(name = "ENABLED")
 	private Boolean enabled;
 
+	@Min(value = 0)
+	@Max(value = Integer.MAX_VALUE)
+	@Column(name = "PRICE")
 	private Integer price;
 
-	@Column(name = "SHORT_DESCRIPTION")
+	@Column(name = "SHORT_DESCRIPTION", length=255)
 	private String shortDescription;
 
 	@Column(name = "CREATED_TIME", insertable = false, updatable = false)

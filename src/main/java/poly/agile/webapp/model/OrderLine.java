@@ -27,8 +27,6 @@ public class OrderLine implements Serializable {
 	@Column(name = "ODER_LINE_ID")
 	private Integer id;
 
-	private Float amount;
-
 	private Integer quantity;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)

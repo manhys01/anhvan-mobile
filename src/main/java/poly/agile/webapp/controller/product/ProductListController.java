@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,13 +21,12 @@ public class ProductListController {
 
 	@GetMapping("/products")
 	public String show(Model model, @RequestParam(value = "page", defaultValue = "1") Integer page) {
-		List<ProductDTO> list = service.list(page);
-		long totalPages = service.totalPages();
+		Page<ProductDTO> list = service.list(page);
 		List<Integer> pages = new ArrayList<>();
-		for (int i = 1; i <= totalPages; i++) {
+		for (int i = 1; i <= list.getTotalPages(); i++) {
 			pages.add(i);
 		}
-		model.addAttribute("products", list);
+		model.addAttribute("products", list.getContent());
 		model.addAttribute("productPage", true);
 		model.addAttribute("pages", pages);
 		return "products/list";

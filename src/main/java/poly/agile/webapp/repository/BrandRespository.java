@@ -7,5 +7,6 @@ import poly.agile.webapp.model.Brand;
 
 @Transactional
 public interface BrandRespository extends JpaRepository<Brand, Integer> {
-
+	
+	Brand findByName(String name);
 }

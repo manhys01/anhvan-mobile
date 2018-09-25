@@ -2,6 +2,7 @@ package poly.agile.webapp.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,7 +24,8 @@ public class Brand implements Serializable {
 	@Column(name = "BRAND_ID")
 	private Integer id;
 
-	@Column(name = "BRAND_NAME", unique = true)
+	@NotBlank
+	@Column(name = "BRAND_NAME", length=45, unique = true, nullable=false)
 	private String name;
 
 	@JsonIgnore

@@ -14,6 +14,5 @@ public interface BaseService<T, ID> {
 	
 	List<T> findAll();
 	
-	long totalPages();
 	
 }

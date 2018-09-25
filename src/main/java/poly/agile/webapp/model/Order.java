@@ -13,6 +13,7 @@ import java.util.List;
 
 
 @Entity
+@Table(name="`order`")
 @Data
 @NoArgsConstructor
 public class Order implements Serializable {

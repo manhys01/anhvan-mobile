@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import poly.agile.webapp.exception.DuplicateFieldException;
 import poly.agile.webapp.model.Brand;
 import poly.agile.webapp.service.brand.BrandService;
 
@@ -48,15 +49,19 @@ public class BrandController {
 		if (errors.hasErrors()) {
 			return "admin/brands/add";
 		}
-		Brand created = service.create(brand);
-		if (created == null) {
-			errors.reject("404");
-			return "admin/brands/add";
-		}
+		try {
+			Brand created = service.create(brand);
+			if (created == null) {
+				errors.reject("404");
+				return "admin/brands/add";
+			}
+		} catch (DuplicateFieldException e) {
+			e.printStackTrace();
+		} 
 		status.setComplete();
 		return "redirect:/admin/brands";
 	}
-	
+
 	@PostMapping("/update")
 	public String replaceBrand(@Valid @ModelAttribute("brand") Brand brand, Errors errors, SessionStatus status) {
 		if (errors.hasErrors()) {

@@ -40,7 +40,7 @@ public class User implements Serializable {
 
 	private String address;
 
-	private Date birthDate;
+	private Date birthdate;
 
 	private Boolean enabled;
 

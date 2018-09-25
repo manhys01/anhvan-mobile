@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import poly.agile.webapp.exception.DuplicateFieldException;
 import poly.agile.webapp.model.Brand;
 import poly.agile.webapp.repository.BrandRespository;
 
@@ -16,20 +17,29 @@ public class BrandServiceImpl implements BrandService {
 
 	@Override
 	public Brand create(Brand b) {
+		Brand brand = repository.findByName(b.getName());
+		if (brand != null)
+			throw new DuplicateFieldException();
 		return repository.save(b);
 	}
 
 	@Override
 	public Brand update(Brand b) {
+		Brand brand = repository.findByName(b.getName());
+		if (brand != null)
+			if (!brand.getId().equals(b.getId()))
+				throw new DuplicateFieldException();
 		return repository.save(b);
 	}
 
 	@Override
-	public boolean remove(Brand o) {
+	public boolean remove(Brand b) {
+		if(b==null) throw new NullPointerException();
 		try {
-			repository.delete(o);
+			repository.delete(b);
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -40,13 +50,13 @@ public class BrandServiceImpl implements BrandService {
 	}
 
 	@Override
-	public List<Brand> findAll() {
-		return repository.findAll();
+	public Brand findBrandByName(String name) {
+		return repository.findByName(name);
 	}
 
 	@Override
-	public long totalPages() {
-		return (long) Math.ceil(repository.count() / 8.0);
+	public List<Brand> findAll() {
+		return repository.findAll();
 	}
 
 }

@@ -1,9 +1,9 @@
 package poly.agile.webapp.service;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface DTOService<DTO> {
 	
-	List<DTO> list(int page);
+	Page<DTO> list(int page);
 	
 }
