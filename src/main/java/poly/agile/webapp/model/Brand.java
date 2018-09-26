@@ -25,11 +25,11 @@ public class Brand implements Serializable {
 	private Integer id;
 
 	@NotBlank
-	@Column(name = "BRAND_NAME", length=45, unique = true, nullable=false)
+	@Column(name = "BRAND_NAME", length = 45, unique = true, nullable = false)
 	private String name;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "brand", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Product> products;
 
 	public Brand(String name) {

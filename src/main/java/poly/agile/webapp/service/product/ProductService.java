@@ -2,6 +2,7 @@ package poly.agile.webapp.service.product;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import poly.agile.webapp.dto.ProductDTO;
@@ -18,9 +19,9 @@ public interface ProductService extends BaseService<Product, Integer>, DTOServic
 	 * 
 	 * @return
 	 */
-	public List<ProductDTO> newProducts();
+	public List<ProductDTO> getFiveNewProducts();
 
-	public Product findProductByBrand(Brand brand);
+	public Page<ProductDTO> findProductByBrand(Brand brand, int page, int limit);
 
 	public Product findProductByName(String name);
 

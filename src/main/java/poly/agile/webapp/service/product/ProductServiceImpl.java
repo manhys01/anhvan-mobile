@@ -52,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Page<ProductDTO> list(int page) {
+	public Page<ProductDTO> getPages(int page) {
 		if (page <= 0)
 			page = 1;
 		return repository.findProductBy(PageRequest.of(page - 1, 8));
@@ -64,13 +64,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductDTO> newProducts() {
+	public List<ProductDTO> getFiveNewProducts() {
 		return repository.findFiveLastestProducts();
-	}
-
-	@Override
-	public Product findProductByBrand(Brand brand) {
-		return repository.findByBrand(brand);
 	}
 
 	@Override
@@ -78,5 +73,12 @@ public class ProductServiceImpl implements ProductService {
 		if (name == null)
 			throw new NullPointerException();
 		return repository.findByName(name);
+	}
+
+	@Override
+	public Page<ProductDTO> findProductByBrand(Brand brand, int page, int limit) {
+		if(brand==null)
+			throw new NullPointerException();
+		return repository.findProductByBrand(brand, PageRequest.of(page, limit));
 	}
 }

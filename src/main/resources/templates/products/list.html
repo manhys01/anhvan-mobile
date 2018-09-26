@@ -31,18 +31,22 @@
 							cao cấp.</p>
 					</div>
 					<div class="card-footer">
-						<a th:href="@{/products/__${prod.id}__}" class="btn btn-primary btn-block view-detail-btn">Xem
-							chi tiết</a>
+						<a th:href="@{/products/__${prod.id}__}"
+							class="btn btn-primary btn-block view-detail-btn">Xem chi
+							tiết</a>
 					</div>
 				</div>
 			</div>
 		</div>
-		<nav aria-label="page" th:remove=" ${pages.size()<=1} ? all : none ">
+		<nav aria-label="page"
+			th:remove="${#lists.size(pagination.controls)}<=1 ? 'all' ">
 			<ul class="pagination">
-				<li class="page-item" th:each="page, pageStat: ${pages}" th:a><a
+				<li class="page-item"
+					th:each="control, controlStat: ${pagination.controls}"
+					th:classappend="${control.actived} ? 'active'"><a
 					class="page-link"
-					th:href="${pageStat.first}?@{/products}:@{/products(page=${page})}"
-					th:text="${page}">1</a></li>
+					th:href="${control.page}==1 ? @{/products} : @{/products(page=__${control.page}__)}"
+					th:text="${control.label}">1</a></li>
 			</ul>
 		</nav>
 	</div>

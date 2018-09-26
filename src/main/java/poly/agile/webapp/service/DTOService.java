@@ -4,6 +4,6 @@ import org.springframework.data.domain.Page;
 
 public interface DTOService<DTO> {
 	
-	Page<DTO> list(int page);
+	Page<DTO> getPages(int page);
 	
 }

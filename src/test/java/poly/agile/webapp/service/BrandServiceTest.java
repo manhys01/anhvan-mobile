@@ -110,4 +110,8 @@ public class BrandServiceTest {
 		brandService.remove(brandService.findBrandByName("a"));
 	}
 
+	@Test
+	public void testO_DeleteBrandHasManyProduct() {
+		assertTrue(brandService.remove(brandService.findBrandByName("Apple")));
+	}
 }

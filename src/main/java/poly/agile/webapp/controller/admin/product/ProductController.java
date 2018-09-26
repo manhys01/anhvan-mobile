@@ -1,6 +1,5 @@
 package poly.agile.webapp.controller.admin.product;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +20,7 @@ import poly.agile.webapp.model.Brand;
 import poly.agile.webapp.model.Product;
 import poly.agile.webapp.service.brand.BrandService;
 import poly.agile.webapp.service.product.ProductService;
+import poly.agile.webapp.util.pagination.Pagination;
 
 @Controller
 @RequestMapping("/admin/products")
@@ -34,14 +34,14 @@ public class ProductController {
 
 	@GetMapping
 	public String list(Model model, @RequestParam(value = "page", defaultValue = "1") Integer page) {
-		Page<ProductDTO> list = productService.list(page);
-		List<Integer> pages = new ArrayList<>();
-		for (int i = 1; i <= list.getTotalPages(); i++) {
-			pages.add(i);
-		}
-		model.addAttribute("products", list.getContent());
-		model.addAttribute("productPage", true);
-		model.addAttribute("pages", pages);
+		Page<ProductDTO> pages = productService.getPages(page);
+		Pagination pagination = new Pagination(pages.getTotalPages(), 10, page);
+		
+		System.out.println(pagination);
+		
+		model.addAttribute("products", pages.getContent());
+		model.addAttribute("pagination", pagination);
+		
 		return "admin/products/list";
 	}
 

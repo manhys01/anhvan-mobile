@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://wwww.thymeleaf.org">
+<html xmlns:th="http://wwww.thymeleaf.org" xmlns:sec>
 <head>
 <meta charset="UTF-8">
 <title>Navbar</title>
@@ -8,17 +8,9 @@
 
 	<nav th:fragment="user"
 		class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
-
 		<a class="navbar-brand" href="#" th:href="@{/}"
 			th:text="#{global.brand.title}">Anh Văn Mobile</a>
-
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarText" aria-controls="navbarText"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-
-		<div class="collapse navbar-collapse" id="navbarText">
+		<div class="collapse navbar-collapse" id="navbar">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item" th:classappend="${homePage} ? 'active'">
 					<a class="nav-link" href="#" th:href="@{/}"
@@ -37,8 +29,32 @@
 						th:text="#{user.navbar.contact}"> Liên hệ </a>
 				</li>
 			</ul>
-			<span class="navbar-text"> </span>
 		</div>
+		<div>
+			<div sec:authorize="!isAuthenticated()">
+				<a class="btn btn-primary" th:href="@{/login}">Đăng nhập</a>
+				<a class="btn btn-success" th:href="@{/register}">Đăng ký</a>
+			</div>
+			<div sec:authorize="isAuthenticated()">
+				<a class="nav-link dropdown-toggle" id="authenticationDropdownMenu"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> User </a>
+				<div class="dropdown-menu"
+					aria-labelledby="authenticationDropdownMenu">
+					<a class="dropdown-item" th:href="@{/profile}">Hồ sơ</a>
+					<a class="dropdown-item" sec:authorize="hasRole('ROLE_ADMIN')"
+						th:href="@{/admin/dashboard}">Sản phẩm</a>
+					<a class="dropdown-item" th:href="@{/logout}">Đăng xuất</a>
+				</div>
+			</div>
+		</div>
+		
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbar" aria-controls="navbar"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		
 	</nav>
 
 
@@ -72,9 +88,11 @@
 						th:text="#{admin.navbar.product}"> QL sản phẩm </a>
 					<div class="dropdown-menu"
 						aria-labelledby="productDropdownMenuLink">
-						<a class="dropdown-item" th:href="@{/admin/brands}">Thương hiệu</a>
+						<a class="dropdown-item" th:href="@{/admin/brands}">Thương
+							hiệu</a>
 						<a class="dropdown-item" th:href="@{/admin/products}">Sản phẩm</a>
-						<a class="dropdown-item" th:href="@{/admin/product/specifications}">Thông số kỹ thuật</a>
+						<a class="dropdown-item"
+							th:href="@{/admin/product/specifications}">Thông số kỹ thuật</a>
 					</div>
 				</li>
 			</ul>

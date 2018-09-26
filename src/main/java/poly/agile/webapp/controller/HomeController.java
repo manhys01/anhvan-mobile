@@ -16,7 +16,12 @@ public class HomeController {
 	@GetMapping("/")
 	public String index(Model model) {
 		model.addAttribute("homePage", true);
-		model.addAttribute("lastestProduct",productService.newProducts());
+		model.addAttribute("lastestProduct",productService.getFiveNewProducts());
 		return "index";
+	}
+	
+	@GetMapping("/403")
+	public String accessDenied() {
+		return "errors/403";
 	}
 }

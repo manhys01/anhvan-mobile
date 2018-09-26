@@ -1,12 +1,15 @@
 package poly.agile.webapp.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +29,8 @@ public class Role implements Serializable {
 	@Column(name = "ROLE_NAME")
 	private String name;
 
-	@OneToMany(mappedBy = "role")
-	private List<User> users;
+	@JsonIgnore
+	@OneToMany(mappedBy = "roles", cascade=CascadeType.ALL)
+	private Set<User> users;
 
 }

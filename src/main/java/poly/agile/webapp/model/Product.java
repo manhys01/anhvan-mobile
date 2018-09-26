@@ -65,7 +65,7 @@ public class Product implements Serializable {
 	@Column(name = "CREATED_TIME", insertable = false, updatable = false)
 	private Date createdTime;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "BRAND_ID")
 	private Brand brand;
 

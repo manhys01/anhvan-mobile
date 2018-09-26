@@ -1,8 +1,5 @@
 package poly.agile.webapp.controller.product;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -12,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import poly.agile.webapp.dto.ProductDTO;
 import poly.agile.webapp.service.product.ProductService;
+import poly.agile.webapp.util.pagination.Pagination;
 
 @Controller
 public class ProductListController {
@@ -21,15 +19,13 @@ public class ProductListController {
 
 	@GetMapping("/products")
 	public String show(Model model, @RequestParam(value = "page", defaultValue = "1") Integer page) {
-		Page<ProductDTO> list = service.list(page);
-		List<Integer> pages = new ArrayList<>();
-		for (int i = 1; i <= list.getTotalPages(); i++) {
-			pages.add(i);
-		}
-		model.addAttribute("products", list.getContent());
+		Page<ProductDTO> pages = service.getPages(page);
+		Pagination pagination = new Pagination(pages.getTotalPages(), 3, page);
+		
+		model.addAttribute("products", pages.getContent());
+		model.addAttribute("pagination", pagination);
 		model.addAttribute("productPage", true);
-		model.addAttribute("pages", pages);
 		return "products/list";
 	}
-	
+
 }

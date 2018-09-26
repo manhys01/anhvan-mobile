@@ -39,6 +39,18 @@
 					</tr>
 				</tbody>
 			</table>
+			<nav aria-label="page"
+				th:remove="${#lists.size(pagination.controls)}<=1 ? 'ALL' ">
+				<ul class="pagination">
+					<li class="page-item"
+						th:each="control, controlStat: ${pagination.controls}"
+						th:classappend="${control.actived} ? 'active'">
+						<a class="page-link"
+							th:href="${control.page}==1 ? @{/admin/products} : @{/admin/products(page=__${control.page}__)}"
+							th:text="${control.label}">1</a>
+					</li>
+				</ul>
+			</nav>
 		</div>
 
 		<!-- remove modal -->
@@ -48,19 +60,19 @@
 
 	<th:block layout:fragment="script">
 		<script>
-			$(document).ready(function(){
-				$(".remove-btn").click(function(e){
+			$(document).ready(function() {
+				$(".remove-btn").click(function(e) {
 					e.preventDefault();
 					var verify = confirm("Bạn có muốn xóa sản phẩm này không?");
-					if(verify){
+					if (verify) {
+						var uri = "/admin/products/delete/";
 						var id = $(this).data("id");
-						var req = "/admin/products/delete/".concat(id);
-						$.post(req, function(result, status){
-							if(result){
+						var req = uri.concat(id);
+						$.post(req,function(result,	status) {
+							if (result) {
 								alert("Xóa thành công!");
-								location.reload();								
-							}
-							else
+								location.reload();
+							} else
 								alert("Xóa thất bại!");
 						});
 					}
