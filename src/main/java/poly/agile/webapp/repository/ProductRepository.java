@@ -40,4 +40,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 			+ "FROM Product p WHERE p.brand = :brand")
 	Page<ProductDTO> findProductByBrand(@Param("brand") Brand brand, Pageable pageable);
 
+	@Query("SELECT new poly.agile.webapp.dto.ProductDTO"
+			+ "(p.id, p.brand.name, p.name, p.price, p.qtyInStock, p.shortDescription, p.thumbnail) "
+			+ "FROM Product p WHERE p.id = :id")
+	ProductDTO findProductById(@Param("id") Integer id);
 }

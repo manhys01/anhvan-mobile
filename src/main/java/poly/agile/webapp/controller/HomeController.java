@@ -9,19 +9,16 @@ import poly.agile.webapp.service.product.ProductService;
 
 @Controller
 public class HomeController {
-	
+
 	@Autowired
 	private ProductService productService;
 
 	@GetMapping("/")
 	public String index(Model model) {
 		model.addAttribute("homePage", true);
-		model.addAttribute("lastestProduct",productService.getFiveNewProducts());
+		model.addAttribute("lastestProduct", productService.getFiveNewProducts());
 		return "index";
 	}
-	
-	@GetMapping("/403")
-	public String accessDenied() {
-		return "errors/403";
-	}
+
+
 }

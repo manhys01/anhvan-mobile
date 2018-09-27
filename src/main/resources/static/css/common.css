@@ -1,0 +1,11 @@
+@media screen and (max-width: 990px) {
+	.form-search-product {
+		margin: 10px 0 !important;
+	}
+}
+
+#cart {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+}

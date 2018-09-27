@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://wwww.thymeleaf.org" xmlns:layout=""
+	layout:decorate="~{layouts/user-layout}">
+<head>
+<title>Giỏ hàng</title>
+</head>
+<body>
+	<div layout:fragment="content" class="pt-5 pb-5"
+		style="min-height: 530px">
+		<div class="container">
+			<h1 th:if="${session.cart}==null">Giỏ hàng trống</h1>
+			<table th:if="${session.cart}!=null" class="table table-bordered">
+				<tr>
+					<th>Hình ảnh</th>
+					<th>Tên SP</th>
+					<th>Số lượng</th>
+					<th>Đơn giá</th>
+					<th>Thành tiền</th>
+					<th>Thao tác</th>
+				</tr>
+				<tr th:each="item : ${session.cart}" th:object="${item.value}">
+					<td class="text-center">
+						<img th:src="${item.value.product.thumbnail}" width="60px">
+					</td>
+					<td th:text="*{product.name}"></td>
+					<td>
+						<input type="number" th:id="'qty-cart-item-' + *{product.id}"
+							min="1" th:value="*{quantity}" max="5">
+					</td>
+					<td
+						th:text="${#numbers.formatInteger(__*{product.price}__, 3, 'POINT')}"></td>
+					<td th:text="${#numbers.formatInteger(__*{amount}__, 3, 'POINT')}"></td>
+					<td>
+						<div class="btn-group">
+							<button th:data-cart-id="*{product.id}"
+								class="btn btn-warning cart-update-btn">Sửa</button>
+							<a th:data-cart-id="*{product.id}"
+								class="btn btn-danger cart-remove-btn">Xóa</a>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="5" class="text-right">Tổng tiền</td>
+					<td
+						th:text="${#numbers.formatInteger(session.cart.amount, 3, 'POINT')}">1000</td>
+				</tr>
+				<tr>
+					<td>
+						<a th:href="@{/products}" class="btn btn-success btn-block">Tiếp
+							tục mua hàng</a>
+					</td>
+					<td colspan="4"></td>
+					<td>
+						<a th:href="@{/order}" class="btn btn-danger btn-block">Đặt
+							hàng luôn</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<th:block layout:fragment="script">
+		<script th:src="@{/js/cart-action.js}"></script>
+	</th:block>
+</body>
+</html>

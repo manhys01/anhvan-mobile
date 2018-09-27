@@ -81,4 +81,9 @@ public class ProductServiceImpl implements ProductService {
 			throw new NullPointerException();
 		return repository.findProductByBrand(brand, PageRequest.of(page, limit));
 	}
+
+	@Override
+	public ProductDTO findProductById(Integer id) {
+		return repository.findProductById(id);
+	}
 }

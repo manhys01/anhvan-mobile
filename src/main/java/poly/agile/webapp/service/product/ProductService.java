@@ -24,5 +24,7 @@ public interface ProductService extends BaseService<Product, Integer>, DTOServic
 	public Page<ProductDTO> findProductByBrand(Brand brand, int page, int limit);
 
 	public Product findProductByName(String name);
+	
+	public ProductDTO findProductById(Integer id);
 
 }
