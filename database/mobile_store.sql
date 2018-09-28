@@ -146,6 +146,7 @@ CREATE TABLE `product` (
   `PRODUCT_UNIT` varchar(45) DEFAULT 'chiếc',
   `THUMBNAIL` varchar(255) DEFAULT NULL,
   `SHORT_DESCRIPTION` varchar(255) DEFAULT NULL,
+  `WARRANTY` varchar(45) DEFAULT NULL,
   `ENABLED` tinyint(1) NOT NULL,
   `CREATED_TIME` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`PRODUCT_ID`),
@@ -161,7 +162,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,1,'iPhone X 256GB Gray',12,34790000,'Chiếc','/images/products/apple/iphone-x-256gb.png','iPhone X mang trên mình thiết kế hoàn toàn mới với màn hình Super Retina viền cực mỏng và trang bị nhiều công nghệ hiện đại như nhận diện khuôn mặt Face ID, sạc pin nhanh và sạc không dây cùng khả năng chống nước bụi cao cấp.',1,'2018-09-24 08:27:39'),(2,1,'iPhone X 64GB Silver',32,29990000,'Chiếc','/images/products/apple/iphone-x-64gb-silver.png','iPhone X là cụm từ được rất nhiều người mong chờ muốn biết và tìm kiếm trên Google bởi đây là chiếc điện thoại mà Apple kỉ niệm 10 năm iPhone đầu tiên được bán ra.',1,'2018-09-24 08:27:39'),(3,2,'Samsung Galaxy A6 (2018)',55,5490000,'Chiếc','/images/products/samsung/samsung-galaxy-a6-2018.png','Samsung Galaxy A6 (2018) là chiếc smartphone tầm trung vừa được ra mắt của Samsung bên cạnh chiếc Samsung Galaxy A6+ (2018).',1,'2018-09-24 08:27:39'),(4,2,'Samsung Note 5',33,8650000,'Chiếc','/images/products/samsung/samsung-galaxy-note-5.png','Samsung Galaxy Note 9 mang trong mình hàng hoạt các thay đổi đột phá với điểm nhấn đặc biệt đến từ chiếc bút S-Pen thần thánh cùng một viên pin dung lượng khổng lồ tới 4.000 mAh.',1,'2018-09-24 08:27:39'),(5,2,'Samsung Galaxy J6',43,4790000,'Chiếc','/images/products/samsung/samsung-galaxy-j6-2018.png','Trong phân khúc smartphone tầm trung, Samsung Galaxy J6 là cái tên tiếp theo được nhắc đến với một thiết kế đẹp, hiệu năng tốt và có màn hình 18.5:9 thời thượng.',1,'2018-09-24 08:27:39'),(6,3,'OPPO F9 6GB',66,8490000,'Chiếc','/images/products/oppo/oppo-f9-6gb.png','Là chiếc điện thoại OPPO được nâng cấp cấu hình, cụ thể là RAM lên tới 6 GB, OPPO F9 6GB còn trang bị nhiều tính năng đột phá như sở hữu công nghệ sạc VOOC mới nhất, mặt lưng chuyển màu độc đáo.',1,'2018-09-24 08:27:39'),(7,3,'OPPO Find X',99,20990000,'Chiếc','/images/products/oppo/oppo-find-x-2.png','OPPO Find X tạo nên một cú hích lớn trong làng smartphone hiện nay khi mang trong mình nhiều tính năng đột phá mà nổi bật nhất đến từ thiết kế sáng tạo và một hiệu năng đỉnh cao.',1,'2018-09-24 08:27:39'),(8,3,'OPPO F7 128GB',56,8990000,'Chiếc','/images/products/oppo/oppo-f7-128gb-den.png','Tiếp nối sự thành công của OPPO F5 thì OPPO tiếp tục giới thiệu OPPO F7 128GB với mức giá tương đương nhưng mang trong mình thiết kế hoàn toàn mới cũng nhiều cải tiến đáng giá.',1,'2018-09-24 08:27:39'),(9,4,'Sony Xperia XZ2',44,11990000,'Chiếc','/images/products/sony/sony-xperia-xz2.png','Tiếp nối sự thành công của OPPO F5 thì OPPO tiếp tục giới thiệu OPPO F7 128GB với mức giá tương đương nhưng mang trong mình thiết kế hoàn toàn mới cũng nhiều cải tiến đáng giá.',1,'2018-09-24 08:27:39'),(10,4,'Sony Xperia XZ Dual',43,9990000,'Chiếc','/images/products/sony/sony-xperia-xz2.png','Sony Xperia XZ Dual với thiết kế cực đẹp, cùng camera chất lượng hơn, nhiều tính năng tiện ích hơn.',1,'2018-09-24 08:27:39'),(11,4,'Sony Xperia XZ1',65,8990000,'Chiếc','/images/products/sony/sony-xperia-xz1-xanh.png','Sony Xperia XZ1 là mẫu flagship kế tiếp của Sony tiếp nối sự thành công của chiếc Xperia XZs đã ra mắt trước đó với những nâng cấp nhẹ về mặt cấu hình và thiết kế.',1,'2018-09-24 08:27:39'),(12,5,'Xiaomi Mi 8',12,12990000,'Chiếc','/images/products/xiaomi/xiaomi-mi-8-black.png','Xiaomi Mi 8 sẽ là cái tên được nhắc đến nhiều trong gia đình Xiaomi khi mang trong mình đầy đủ những gì gọi là cao cấp đến từ vẻ đẹp bên ngoài cũng như phần cứng mạnh mẽ bên trong.',1,'2018-09-24 08:27:39'),(13,5,'Xiaomi Mi A2',34,6690000,'Chiếc','/images/products/xiaomi/xiaomi-a2.png','Tiếp nối sự thành công của Xiaomi Mi A1 thì Xiaomi tiếp tục giới thiệu tới người dùng phiên bản kế nhiệm là chiếc Xiaomi Mi A2 với nâng cấp mạnh mẽ về cấu hình cũng như camera.',1,'2018-09-24 08:27:39'),(14,5,'Xiaomi Redmi Note 5',77,5690000,'Chiếc','/images/products/xiaomi/xiaomi-redmi-note-5-pro.png','Xiaomi Redmi Note 5 là smartphone thứ ba trong phân khúc tầm trung - giá rẻ của Xiaomi sở hữu màn hình tỉ lệ mới 18:9.',1,'2018-09-24 08:27:39');
+INSERT INTO `product` VALUES (1,1,'iPhone X 256GB Gray',12,34790000,'Chiếc','/images/products/apple/iphone-x-256gb.png','iPhone X mang trên mình thiết kế hoàn toàn mới với màn hình Super Retina viền cực mỏng và trang bị nhiều công nghệ hiện đại như nhận diện khuôn mặt Face ID, sạc pin nhanh và sạc không dây cùng khả năng chống nước bụi cao cấp.',NULL,1,'2018-09-24 08:27:39'),(2,1,'iPhone X 64GB Silver',32,29990000,'Chiếc','/images/products/apple/iphone-x-64gb-silver.png','iPhone X là cụm từ được rất nhiều người mong chờ muốn biết và tìm kiếm trên Google bởi đây là chiếc điện thoại mà Apple kỉ niệm 10 năm iPhone đầu tiên được bán ra.',NULL,1,'2018-09-24 08:27:39'),(3,2,'Samsung Galaxy A6 (2018)',55,5490000,'Chiếc','/images/products/samsung/samsung-galaxy-a6-2018.png','Samsung Galaxy A6 (2018) là chiếc smartphone tầm trung vừa được ra mắt của Samsung bên cạnh chiếc Samsung Galaxy A6+ (2018).',NULL,1,'2018-09-24 08:27:39'),(4,2,'Samsung Note 5',33,8650000,'Chiếc','/images/products/samsung/samsung-galaxy-note-5.png','Samsung Galaxy Note 9 mang trong mình hàng hoạt các thay đổi đột phá với điểm nhấn đặc biệt đến từ chiếc bút S-Pen thần thánh cùng một viên pin dung lượng khổng lồ tới 4.000 mAh.',NULL,1,'2018-09-24 08:27:39'),(5,2,'Samsung Galaxy J6',43,4790000,'Chiếc','/images/products/samsung/samsung-galaxy-j6-2018.png','Trong phân khúc smartphone tầm trung, Samsung Galaxy J6 là cái tên tiếp theo được nhắc đến với một thiết kế đẹp, hiệu năng tốt và có màn hình 18.5:9 thời thượng.',NULL,1,'2018-09-24 08:27:39'),(6,3,'OPPO F9 6GB',66,8490000,'Chiếc','/images/products/oppo/oppo-f9-6gb.png','Là chiếc điện thoại OPPO được nâng cấp cấu hình, cụ thể là RAM lên tới 6 GB, OPPO F9 6GB còn trang bị nhiều tính năng đột phá như sở hữu công nghệ sạc VOOC mới nhất, mặt lưng chuyển màu độc đáo.',NULL,1,'2018-09-24 08:27:39'),(7,3,'OPPO Find X',99,20990000,'Chiếc','/images/products/oppo/oppo-find-x-2.png','OPPO Find X tạo nên một cú hích lớn trong làng smartphone hiện nay khi mang trong mình nhiều tính năng đột phá mà nổi bật nhất đến từ thiết kế sáng tạo và một hiệu năng đỉnh cao.',NULL,1,'2018-09-24 08:27:39'),(8,3,'OPPO F7 128GB',56,8990000,'Chiếc','/images/products/oppo/oppo-f7-128gb-den.png','Tiếp nối sự thành công của OPPO F5 thì OPPO tiếp tục giới thiệu OPPO F7 128GB với mức giá tương đương nhưng mang trong mình thiết kế hoàn toàn mới cũng nhiều cải tiến đáng giá.',NULL,1,'2018-09-24 08:27:39'),(9,4,'Sony Xperia XZ2',44,11990000,'Chiếc','/images/products/sony/sony-xperia-xz2.png','Tiếp nối sự thành công của OPPO F5 thì OPPO tiếp tục giới thiệu OPPO F7 128GB với mức giá tương đương nhưng mang trong mình thiết kế hoàn toàn mới cũng nhiều cải tiến đáng giá.',NULL,1,'2018-09-24 08:27:39'),(10,4,'Sony Xperia XZ Dual',43,9990000,'Chiếc','/images/products/sony/sony-xperia-xz2.png','Sony Xperia XZ Dual với thiết kế cực đẹp, cùng camera chất lượng hơn, nhiều tính năng tiện ích hơn.',NULL,1,'2018-09-24 08:27:39'),(11,4,'Sony Xperia XZ1',65,8990000,'Chiếc','/images/products/sony/sony-xperia-xz1-xanh.png','Sony Xperia XZ1 là mẫu flagship kế tiếp của Sony tiếp nối sự thành công của chiếc Xperia XZs đã ra mắt trước đó với những nâng cấp nhẹ về mặt cấu hình và thiết kế.',NULL,1,'2018-09-24 08:27:39'),(12,5,'Xiaomi Mi 8',12,12990000,'Chiếc','/images/products/xiaomi/xiaomi-mi-8-black.png','Xiaomi Mi 8 sẽ là cái tên được nhắc đến nhiều trong gia đình Xiaomi khi mang trong mình đầy đủ những gì gọi là cao cấp đến từ vẻ đẹp bên ngoài cũng như phần cứng mạnh mẽ bên trong.',NULL,1,'2018-09-24 08:27:39'),(13,5,'Xiaomi Mi A2',34,6690000,'Chiếc','/images/products/xiaomi/xiaomi-a2.png','Tiếp nối sự thành công của Xiaomi Mi A1 thì Xiaomi tiếp tục giới thiệu tới người dùng phiên bản kế nhiệm là chiếc Xiaomi Mi A2 với nâng cấp mạnh mẽ về cấu hình cũng như camera.',NULL,1,'2018-09-24 08:27:39'),(14,5,'Xiaomi Redmi Note 5',77,5690000,'Chiếc','/images/products/xiaomi/xiaomi-redmi-note-5-pro.png','Xiaomi Redmi Note 5 là smartphone thứ ba trong phân khúc tầm trung - giá rẻ của Xiaomi sở hữu màn hình tỉ lệ mới 18:9.',NULL,1,'2018-09-24 08:27:39');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -243,7 +244,7 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES (2,'Khách hàng'),(1,'Quản trị viên');
+INSERT INTO `role` VALUES (1,'ADMIN'),(2,'USER');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -258,7 +259,8 @@ CREATE TABLE `specification` (
   `SPECIFICATION_ID` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `SPECIFICATION_NAME` varchar(255) NOT NULL,
   PRIMARY KEY (`SPECIFICATION_ID`),
-  UNIQUE KEY `SPECIFICATION_NAME_UNIQUE` (`SPECIFICATION_NAME`)
+  UNIQUE KEY `SPECIFICATION_NAME_UNIQUE` (`SPECIFICATION_NAME`),
+  KEY `SPECIFICATION_IDX` (`SPECIFICATION_ID`) /*!80000 INVISIBLE */
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -284,6 +286,7 @@ CREATE TABLE `user` (
   `USERNAME` varchar(45) NOT NULL,
   `PASSWORD` varchar(128) NOT NULL,
   `EMAIL` varchar(255) NOT NULL,
+  `FULL_NAME` varchar(45) DEFAULT NULL,
   `ADDRESS` varchar(255) DEFAULT NULL,
   `PHONE_NUMBER` varchar(15) NOT NULL,
   `BIRTHDATE` date DEFAULT NULL,
@@ -307,8 +310,35 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'default','123','','','','0000-00-00',NULL,0,'2018-09-13 22:17:52','2018-09-13 22:17:52',2),(2,'admin','123','manhnd.695@gmail.com','','0912831231','0000-00-00',NULL,1,'2018-09-13 22:19:38','2018-09-13 22:19:38',1),(3,'manhnd','123','manhnd.yoshi@gmail.com','Bắc Ninh','0912831232',NULL,1,1,'2018-09-13 22:20:19','2018-09-13 22:20:36',2);
+INSERT INTO `user` VALUES (1,'default','$2a$10$6VHwMEvlqlwrQqO8Zz2cL.cn0zx85bVJtB1/VnS2tzR4EP9sCVDzK','',NULL,'','',NULL,NULL,0,'2018-09-13 22:17:52','2018-09-28 15:25:50',2),(2,'admin','$2a$10$prp0B1bOxdTPPuh9RnMBkOBLMJfDM8EDN6HwP0.p6HpeoYRENRe/m','manhnd.695@gmail.com',NULL,'','0912831231',NULL,NULL,1,'2018-09-13 22:19:38','2018-09-28 15:25:50',1),(3,'manhnd','$2a$10$HsQ2DMugUnPdCo09BmG74eliYz6jaPT3Oq0GdNfeuYr6xUwZ6ajge','manhnd.yoshi@gmail.com',NULL,'Bắc Ninh','0912831232',NULL,1,1,'2018-09-13 22:20:19','2018-09-28 15:25:50',2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_role`
+--
+
+DROP TABLE IF EXISTS `user_role`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `user_role` (
+  `USER_ID` int(11) unsigned NOT NULL,
+  `ROLE_ID` tinyint(3) unsigned NOT NULL,
+  PRIMARY KEY (`USER_ID`,`ROLE_ID`),
+  KEY `fk_role_user_role_idx` (`ROLE_ID`),
+  CONSTRAINT `fk_role_user_role` FOREIGN KEY (`ROLE_ID`) REFERENCES `role` (`role_id`),
+  CONSTRAINT `fk_user_user_role` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_role`
+--
+
+LOCK TABLES `user_role` WRITE;
+/*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
+INSERT INTO `user_role` VALUES (2,1),(1,2),(2,2),(3,2);
+/*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -320,4 +350,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-24  8:28:01
+-- Dump completed on 2018-09-28 22:31:55

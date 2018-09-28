@@ -81,7 +81,7 @@ public class BrandController {
 		return service.remove(service.findById(id));
 	}
 
-	@ModelAttribute
+	@ModelAttribute("brand")
 	public Brand getBrand() {
 		return new Brand();
 	}

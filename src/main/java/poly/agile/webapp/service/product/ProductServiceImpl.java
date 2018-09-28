@@ -76,14 +76,26 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Page<ProductDTO> findProductByBrand(Brand brand, int page, int limit) {
-		if(brand==null)
+	public Page<ProductDTO> findProductByBrand(Brand brand, int page) {
+		if (brand == null)
 			throw new NullPointerException();
-		return repository.findProductByBrand(brand, PageRequest.of(page, limit));
+		return repository.findProductByBrand(brand, PageRequest.of(page - 1, 8));
 	}
 
 	@Override
 	public ProductDTO findProductById(Integer id) {
 		return repository.findProductById(id);
+	}
+
+	@Override
+	public Page<ProductDTO> search(String keyword, int page) {
+		if (keyword == null)
+			throw new NullPointerException();
+
+		if (page < 1)
+			page = 1;
+
+		keyword = "%" + keyword + "%";
+		return repository.findProduct(keyword, PageRequest.of(page - 1, 8));
 	}
 }

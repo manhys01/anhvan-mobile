@@ -19,23 +19,25 @@
 					<th>Thao tác</th>
 				</tr>
 				<tr th:each="item : ${session.cart}" th:object="${item.value}">
-					<td class="text-center">
-						<img th:src="${item.value.product.thumbnail}" width="60px">
-					</td>
+					<td class="text-center"><img
+						th:src="${item.value.product.thumbnail}" width="60px"></td>
 					<td th:text="*{product.name}"></td>
-					<td>
-						<input type="number" th:id="'qty-cart-item-' + *{product.id}"
-							min="1" th:value="*{quantity}" max="5">
-					</td>
+					<td><input type="number"
+						th:id="'qty-cart-item-' + *{product.id}" min="1"
+						th:value="*{quantity}" max="5"></td>
 					<td
 						th:text="${#numbers.formatInteger(__*{product.price}__, 3, 'POINT')}"></td>
 					<td th:text="${#numbers.formatInteger(__*{amount}__, 3, 'POINT')}"></td>
 					<td>
 						<div class="btn-group">
-							<button th:data-cart-id="*{product.id}"
-								class="btn btn-warning cart-update-btn">Sửa</button>
-							<a th:data-cart-id="*{product.id}"
-								class="btn btn-danger cart-remove-btn">Xóa</a>
+							<button type="button" th:data-cart-id="*{product.id}"
+								class="btn btn-warning cart-update-btn">
+								<i class="fas fa-pen"></i>
+							</button>
+							<button type="button" th:data-cart-id="*{product.id}"
+								class="btn btn-danger cart-remove-btn">
+								<i class="far fa-trash-alt"></i>
+							</button>
 						</div>
 					</td>
 				</tr>
@@ -45,15 +47,11 @@
 						th:text="${#numbers.formatInteger(session.cart.amount, 3, 'POINT')}">1000</td>
 				</tr>
 				<tr>
-					<td>
-						<a th:href="@{/products}" class="btn btn-success btn-block">Tiếp
-							tục mua hàng</a>
-					</td>
+					<td><a th:href="@{/products}"
+						class="btn btn-success btn-block">Tiếp tục mua hàng</a></td>
 					<td colspan="4"></td>
-					<td>
-						<a th:href="@{/order}" class="btn btn-danger btn-block">Đặt
-							hàng luôn</a>
-					</td>
+					<td><a th:href="@{/order}" class="btn btn-danger btn-block">Đặt
+							hàng luôn</a></td>
 				</tr>
 			</table>
 		</div>

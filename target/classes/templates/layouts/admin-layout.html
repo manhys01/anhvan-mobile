@@ -6,10 +6,13 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <!-- font-awesome -->
-<link rel="stylesheet" href="/css/font-awesome.min.css" />
+<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />
 
 <!-- css bootstrap core -->
-<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+
+<!-- css common -->
+<link rel="stylesheet" th:href="@{/css/common.css}" />
 
 <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE"
 	th:text="#{layout.admin.title}"></title>
@@ -26,9 +29,9 @@
 	<footer th:replace="fragments/footer :: footer"> </footer>
 
 	<!-- script core jQuery, popper, bootstrap -->
-	<script src="/js/jquery.min.js"></script>
-	<script src="/js/popper.min.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
+	<script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/popper.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
 
 	<th:block layout:fragment="script">
 	</th:block>

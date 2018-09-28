@@ -21,11 +21,27 @@ public class ProductListController {
 	public String show(Model model, @RequestParam(value = "page", defaultValue = "1") Integer page) {
 		Page<ProductDTO> pages = service.getPages(page);
 		Pagination pagination = new Pagination(pages.getTotalPages(), 3, page);
-		
+
 		model.addAttribute("products", pages.getContent());
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("productPage", true);
 		return "products/list";
+	}
+
+	@GetMapping(value = "/products/search", params = "query")
+	public String search(Model model, @RequestParam(value = "page", defaultValue = "1") Integer page,
+			@RequestParam("query") String keyword) {
+		Page<ProductDTO> pages = service.search(keyword, page);
+		Pagination pagination = new Pagination(pages.getTotalPages(), 3, page);
+
+		pages.getContent().forEach(e->{
+			System.out.println(e.getName());
+		});
+		
+		model.addAttribute("products", pages.getContent());
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("productPage", true);
+		return "products/search";
 	}
 
 }

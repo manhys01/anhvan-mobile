@@ -18,8 +18,10 @@ import poly.agile.webapp.dto.ProductDTO;
 import poly.agile.webapp.exception.DuplicateFieldException;
 import poly.agile.webapp.model.Brand;
 import poly.agile.webapp.model.Product;
+import poly.agile.webapp.model.Specification;
 import poly.agile.webapp.service.brand.BrandService;
 import poly.agile.webapp.service.product.ProductService;
+import poly.agile.webapp.service.specification.SpecificationSerivce;
 import poly.agile.webapp.util.pagination.Pagination;
 
 @Controller
@@ -30,18 +32,21 @@ public class ProductController {
 	private BrandService brandService;
 
 	@Autowired
+	private SpecificationSerivce specService;
+
+	@Autowired
 	private ProductService productService;
 
 	@GetMapping
 	public String list(Model model, @RequestParam(value = "page", defaultValue = "1") Integer page) {
 		Page<ProductDTO> pages = productService.getPages(page);
 		Pagination pagination = new Pagination(pages.getTotalPages(), 10, page);
-		
+
 		System.out.println(pagination);
-		
+
 		model.addAttribute("products", pages.getContent());
 		model.addAttribute("pagination", pagination);
-		
+
 		return "admin/products/list";
 	}
 
@@ -79,6 +84,11 @@ public class ProductController {
 	@ModelAttribute("brands")
 	public List<Brand> getBrands() {
 		return brandService.findAll();
+	}
+
+	@ModelAttribute("specifications")
+	public List<Specification> getSpecifications() {
+		return specService.findAll();
 	}
 
 }

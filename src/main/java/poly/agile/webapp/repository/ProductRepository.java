@@ -20,6 +20,11 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	Product findByName(String name);
 
 	Product findByBrand(Brand brand);
+	
+	@Query("SELECT new poly.agile.webapp.dto.ProductDTO"
+			+ "(p.id, p.brand.name, p.name, p.price, p.qtyInStock, p.shortDescription, p.thumbnail) "
+			+ "FROM Product p WHERE p.brand.name like :search OR p.name like :search")
+	Page<ProductDTO> findProduct(@Param("search") String keyword, Pageable pageable);
 
 	@Query("SELECT new poly.agile.webapp.dto.ProductDTO"
 			+ "(p.id, p.brand.name, p.name, p.price, p.qtyInStock, p.shortDescription, p.thumbnail) "

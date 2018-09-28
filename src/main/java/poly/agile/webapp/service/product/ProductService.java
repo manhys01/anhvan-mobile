@@ -21,10 +21,12 @@ public interface ProductService extends BaseService<Product, Integer>, DTOServic
 	 */
 	public List<ProductDTO> getFiveNewProducts();
 
-	public Page<ProductDTO> findProductByBrand(Brand brand, int page, int limit);
+	public Page<ProductDTO> findProductByBrand(Brand brand, int page);
+
+	public Page<ProductDTO> search(String keyword, int page);
 
 	public Product findProductByName(String name);
-	
+
 	public ProductDTO findProductById(Integer id);
 
 }
