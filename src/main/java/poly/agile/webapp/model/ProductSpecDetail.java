@@ -16,6 +16,7 @@ public class ProductSpecDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "PROD_SPEC_DETAIL_ID")
 	private Integer id;
 
@@ -26,7 +27,7 @@ public class ProductSpecDetail implements Serializable {
 	private String value;
 
 	@JsonIgnore
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "PROD_SPEC_ID")
 	private ProductSpec productSpec;
 

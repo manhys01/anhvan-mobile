@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://wwww.thymeleaf.org" xmlns:layout=""
+	layout:decorate="~{layouts/admin-layout}">
+<head>
+<title>Form</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="container pt-5 pb-5">
+			<form th:action="@{/admin/products/update/__${product.id}__}"
+				th:object="${product}" th:method="post">
+				<div class="form-row">
+					<div class="form-group col-md-9">
+						<label for="inputProductName">Tên sản phẩm</label>
+						<input type="text" id="inputProductName" class="form-control"
+							placeholder="Tên sản phẩm" th:field="*{name}">
+					</div>
+					<div class="form-group col-md-3">
+						<label for="selectBrand">Thương hiệu</label>
+						<select th:field="*{brand}" class="form-control" id="selectBrand">
+							<option th:each="b : ${brands}" th:value="${b.id}"
+								th:text="${b.name}"></option>
+						</select>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="inputPrice">Giá</label>
+						<input id="inputPrice" type="number" min="0" max="1000000000"
+							class="form-control" placeholder="Đơn giá" th:field="*{price}">
+					</div>
+					<div class="form-group col-md-4">
+						<label for="inputUnit">Đơn vị tính</label>
+						<input id="inputUnit" type="text" class="form-control"
+							placeholder="Đơn vị tính" th:field="*{unit}">
+					</div>
+					<div class="form-group col-md-2">
+						<label for="inputQty">Số lượng</label>
+						<input id="inputQty" type="number" min="1" max="100"
+							class="form-control" placeholder="Số lượng"
+							th:field="*{qtyInStock}">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="textareaShortDesc">Mô tả ngắn</label>
+					<textarea id="textareaShortDesc" rows="3" class="form-control"
+						placeholder="Mô tả ngắn" th:field="*{shortDescription}"></textarea>
+				</div>
+				<div class="form-group">
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" id="enabled"
+							th:field="*{enabled}">
+						<label class="form-check-label" for="enabled"> Mở bán </label>
+					</div>
+				</div>
+
+				<table class="table table-sm table-bordered" id="table-spec">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Thông số kỹ thuật</th>
+							<th>
+								<button name="addSpecRow"
+									class="btn btn-block btn-sm btn-success">Thêm</button>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="prodSpec, prodSpecStat : *{productSpecs}">
+							<td th:text="${prodSpecStat.count}">1</td>
+							<td>
+								<div class="mb-2">
+									<select
+										th:field="*{productSpecs[__${prodSpecStat.index}__].specification}"
+										class="form-control">
+										<option th:each="spec : ${specifications}"
+											th:value="${spec.id}" th:text="${spec.name}">Màn
+											hình</option>
+									</select>
+								</div>
+
+								<div>
+									<table class="table table-sm">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>Tên</th>
+												<th>Giá trị</th>
+												<th>
+													<button name="addSpecDetailRow"
+														th:value="${prodSpecStat.index}"
+														class="btn btn-block btn-sm btn-success">Thêm</button>
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="psd, psdStat : ${prodSpec.productSpecDetails}">
+												<td th:text="${psdStat.count}"></td>
+												<td>
+													<textarea rows="3" class="form-control form-control-sm"
+														th:field="*{productSpecs[__${prodSpecStat.index}__].productSpecDetails[__${psdStat.index}__].name}"></textarea>
+												</td>
+												<td>
+													<textarea rows="3" class="form-control form-control-sm"
+														th:field="*{productSpecs[__${prodSpecStat.index}__].productSpecDetails[__${psdStat.index}__].value}"></textarea>
+												</td>
+												<td>
+													<button name="removeSpecDetailRow"
+														class="btn btn-block btn-sm btn-danger">Xóa</button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							<td>
+								<!-- <inpu
+						t type="hidden"
+								th:field="*{productSpecs[__${prodSpecStat.index}__].product}"> -->
+								<button name="removeSpecRow" th:value="${prodSpecStat.index}"
+									class="btn btn-block btn-sm btn-danger">Xóa</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<button type="submit" name="update" class="btn btn-warning">Update</button>
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>
