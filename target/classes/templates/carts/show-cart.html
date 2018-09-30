@@ -9,7 +9,7 @@
 		style="min-height: 530px">
 		<div class="container">
 			<h1 th:if="${session.cart}==null">Giỏ hàng trống</h1>
-			<table th:if="${session.cart}!=null" class="table table-bordered">
+			<table th:unless="${session.cart}==null" class="table table-bordered">
 				<tr>
 					<th>Hình ảnh</th>
 					<th>Tên SP</th>
@@ -60,5 +60,6 @@
 	<th:block layout:fragment="script">
 		<script th:src="@{/js/cart-action.js}"></script>
 	</th:block>
+
 </body>
 </html>

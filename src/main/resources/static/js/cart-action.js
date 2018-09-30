@@ -18,17 +18,20 @@ $(document).ready(function() {
 	});
 
 	$(".cart-remove-btn").on("click", function() {
-		var key = $(this).data("cart-id");
-		var url = "/cart/remove";
-		$.ajax({
-			type : "GET",
-			url : url,
-			data : {
-				key : key
-			},
-			success : function() {
-				location.reload();
-			}
-		});
+		var action = confirm("Bạn có muốn xóa sản phẩm này ra khỏi giỏ hàng không?");
+		if(action){
+			var key = $(this).data("cart-id");
+			var url = "/cart/remove";
+			$.ajax({
+				type : "GET",
+				url : url,
+				data : {
+					key : key
+				},
+				success : function() {
+					location.reload();
+				}
+			});
+		}
 	});
 });

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://wwww.thymeleaf.org">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- font-awesome -->
+<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />
+
+<!-- css bootstrap core -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+
+<link rel="stylesheet" th:href="@{/css/register.css}" />
+
+<title>Đăng ký tài khoản</title>
+</head>
+<body>
+	<div class="container centered">
+		<form th:action="@{/register}" method="post">
+			<h1 class="pb-3">Đăng ký tài khoản</h1>
+			
+			<div class="form-group">
+				<label for="username">Tài khoản</label>
+				<input id="username" name="username"
+					class="form-control form-control-sm" autofocus="autofocus">
+			</div>
+			
+			<div class="form-group">
+				<label for="password">Mật khẩu</label>
+				<input type="password" id="password" name="password"
+					class="form-control form-control-sm">
+			</div>
+			
+			<div class="form-group">
+				<input id="rememberMe" type="checkbox" name="remember-me">
+				<label for="rememberMe">Ghi nhớ tài khoản</label>
+			</div>
+			
+			<div class="form-group">
+				<button class="btn btn-primary">Đăng ký</button>
+			</div>
+			
+		</form>
+	</div>
+
+	<!-- script core jQuery, popper, bootstrap -->
+	<script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/popper.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

@@ -54,14 +54,19 @@ public class UpdateProductController {
 	@PostMapping(params = "addSpecDetailRow")
 	public String addSpecDetailRow(@ModelAttribute("product") Product product,
 			@RequestParam("addSpecDetailRow") Integer rowIndex) {
-		product.getProductSpecs().get(rowIndex.intValue()).getProductSpecDetails().add(new ProductSpecDetail());
+		ProductSpec productSpec = product.getProductSpecs().get(rowIndex.intValue());
+		ProductSpecDetail detail = new ProductSpecDetail();
+		detail.setProductSpec(productSpec);
+		productSpec.getProductSpecDetails().add(detail);
 		return "admin/products/update";
 	}
 
 	@PostMapping(params = "removeSpecRow")
 	public String removeSpecRow(@ModelAttribute("product") Product product,
 			@RequestParam("removeSpecRow") Integer rowIndex) {
-		product.getProductSpecs().remove(rowIndex.intValue());
+		List<ProductSpec> list = product.getProductSpecs();
+		list.remove(rowIndex.intValue());
+		product.setProductSpecs(list);
 		return "admin/products/update";
 	}
 

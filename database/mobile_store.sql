@@ -53,9 +53,10 @@ CREATE TABLE `order` (
   `ORDER_ID` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `USER_ID` int(11) unsigned NOT NULL,
   `ORDER_STATUS_ID` tinyint(3) unsigned NOT NULL,
+  `CUSTOMER_NAME` varchar(45) NOT NULL,
   `PHONE_NUMBER` varchar(15) NOT NULL,
-  `ADDRESS` varchar(255) NOT NULL,
-  `AMOUNT` int(11) NOT NULL,
+  `SHIPPING_ADDRESS` varchar(255) NOT NULL,
+  `AMOUNT` int(11) unsigned NOT NULL,
   `CREATED_TIME` datetime DEFAULT CURRENT_TIMESTAMP,
   `UPDATED_TIME` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `UPDATED_BY` varchar(45) DEFAULT NULL,
@@ -301,7 +302,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `PHONE_NUMBER_UNIQUE` (`PHONE_NUMBER`),
   KEY `fk_user_Role_idx` (`ROLE_ID`),
   CONSTRAINT `fk_user_Role` FOREIGN KEY (`ROLE_ID`) REFERENCES `role` (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
