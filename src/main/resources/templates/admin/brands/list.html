@@ -7,26 +7,27 @@
 <body>
 	<div layout:fragment="content" class="container pt-5 pb-5">
 		<div class="row">
-			<a th:href="@{/admin/brands/add}" id="create-btn" class="btn btn-large btn-primary mb-2"
+			<a th:href="@{/admin/brands/add}" id="create-btn"
+				class="btn btn-large btn-primary mb-2"
 				th:text="#{admin.brand.button.add}">Thêm mới</a>
-			<table class="table table-sm table-striped table-bordered">
+			<table class="table table-sm table-bordered">
 				<thead>
 					<tr>
 						<th th:text="#{admin.brand.table.column.id}">ID</th>
 						<th th:text="#{admin.brand.table.column.brand}">Brand name</th>
-						<th th:text="#{admin.brand.table.column.action}">Action</th>
+						<th th:text="#{admin.brand.table.column.action}"
+							style="width: 100px">Action</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="brand : ${brands}">
 						<td th:text="${brand.id}">ID</td>
 						<td th:text="${brand.name}">name</td>
-						<td>
-							<a th:text="#{admin.brand.button.edit}" th:href="@{/admin/brands/edit/__${brand.id}__}"
-								class="btn btn-warning edit-btn">Sửa</a>
-							<button th:text="#{admin.brand.button.remove}"
-								th:data-id="${brand.id}" th:data-name="${brand.name}"
-								class="btn btn-danger remove-btn">Xóa</button>
+						<td class="text-center">
+							<a th:href="@{/admin/brands/edit/__${brand.id}__}"
+								class="btn btn-warning edit-btn" th:utext="#{icon.edit}"></a>
+							<button th:data-id="${brand.id}" th:data-name="${brand.name}"
+								class="btn btn-danger remove-btn" th:utext="#{icon.remove}"></button>
 						</td>
 					</tr>
 				</tbody>

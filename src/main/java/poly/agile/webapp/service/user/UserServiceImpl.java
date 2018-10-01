@@ -1,5 +1,7 @@
 package poly.agile.webapp.service.user;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,6 +27,31 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findUserById(Integer id) {
 		return userRepository.getOne(id);
+	}
+
+	@Override
+	public User create(User object) {
+		return null;
+	}
+
+	@Override
+	public User update(User object) {
+		return null;
+	}
+
+	@Override
+	public boolean remove(User object) {
+		return false;
+	}
+
+	@Override
+	public User findById(Integer id) {
+		return null;
+	}
+
+	@Override
+	public List<User> findAll() {
+		return null;
 	}
 
 }

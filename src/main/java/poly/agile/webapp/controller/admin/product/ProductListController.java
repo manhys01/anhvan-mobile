@@ -12,9 +12,9 @@ import poly.agile.webapp.dto.ProductDTO;
 import poly.agile.webapp.service.product.ProductService;
 import poly.agile.webapp.util.pagination.Pagination;
 
-@Controller
+@Controller("adminProductListController")
 @RequestMapping("/admin/products")
-public class ProductController {
+public class ProductListController {
 
 	@Autowired
 	private ProductService productService;

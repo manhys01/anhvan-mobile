@@ -26,13 +26,29 @@
 						<td th:text="${order.customerName}">Người nhận hàng</td>
 						<td th:text="${order.phoneNumber}">Số điện thoại</td>
 						<td th:text="${order.address}">Địa chỉ giao giao hàng</td>
-						<td th:text="${order.createdTime}">Thời gian đặt hàng</td>
+						<td
+							th:text="${#dates.format(order.createdTime, 'dd/MM/yyyy hh:mm:ss')}">Thời
+							gian đặt hàng</td>
 						<td th:text="${order.status}">Trạng thái</td>
-						<td><button>Sửa</button>
-							<button>Xóa</button></td>
+						<td>
+							<button>Sửa</button>
+							<button>Xóa</button>
+						</td>
 					</tr>
 				</tbody>
 			</table>
+			<nav aria-label="page"
+				th:remove="${#lists.size(pagination.controls)}<=1 ? 'ALL' ">
+				<ul class="pagination">
+					<li class="page-item"
+						th:each="control, controlStat: ${pagination.controls}"
+						th:classappend="${control.actived} ? 'active'">
+						<a class="page-link"
+							th:href="${control.page}==1 ? @{/admin/orders} : @{/admin/orders(page=__${control.page}__)}"
+							th:text="${control.label}">1</a>
+					</li>
+				</ul>
+			</nav>
 		</div>
 	</div>
 

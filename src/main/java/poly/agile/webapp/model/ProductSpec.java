@@ -20,30 +20,29 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-
 @Entity
-@Table(name="product_spec")
+@Table(name = "product_spec")
 @Data
 @NoArgsConstructor
-@ToString(exclude= {"productSpecDetails"})
+@ToString(exclude = { "productSpecDetails" })
 public class ProductSpec implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="PROD_SPEC_ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "PROD_SPEC_ID")
 	private Integer id;
 
 	@JsonIgnore
 	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="PRODUCT_ID")
+	@JoinColumn(name = "PRODUCT_ID")
 	private Product product;
 
-	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="SPECIFICATION_ID")
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "SPECIFICATION_ID")
 	private Specification specification;
 
-	@OneToMany(mappedBy="productSpec", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "productSpec", cascade = CascadeType.ALL, orphanRemoval=true)
 	private List<ProductSpecDetail> productSpecDetails;
 
 }

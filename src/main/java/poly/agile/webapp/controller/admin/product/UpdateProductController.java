@@ -84,16 +84,12 @@ public class UpdateProductController {
 		if(productSpec.getProductSpecDetails().isEmpty())
 			product.getProductSpecs().remove(specIndex);
 		
-		System.err.println("Product specification size: " +product.getProductSpecs().size());
-		
 		return "admin/products/update";
 	}
 
 	@PostMapping(params = "update")
 	public String update(@ModelAttribute("product") Product product, SessionStatus status) {
 		try {
-			System.err.println("Product specification size: " +product.getProductSpecs().size());
-			
 			productService.update(product);
 			status.setComplete();
 		} catch (DuplicateFieldException e) {

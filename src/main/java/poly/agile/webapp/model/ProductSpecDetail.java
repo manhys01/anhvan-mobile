@@ -2,6 +2,7 @@ package poly.agile.webapp.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -20,9 +21,11 @@ public class ProductSpecDetail implements Serializable {
 	@Column(name = "PROD_SPEC_DETAIL_ID")
 	private Integer id;
 
+	@NotBlank(message="Không được để trống tên chi tiết thông số kỹ thuật!")
 	@Column(name = "PROD_SPEC_NAME")
 	private String name;
 
+	@NotBlank(message="Không được để trống giá trị chi tiết thông số kỹ thuật!")
 	@Column(name = "PROD_SPEC_VALUE")
 	private String value;
 

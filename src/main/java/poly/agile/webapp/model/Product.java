@@ -16,7 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -36,31 +38,40 @@ public class Product implements Serializable {
 	@Column(name = "PRODUCT_ID")
 	private Integer id;
 
-	@NotBlank
+	@Length(min = 1, max = 255, message = "Tên phải nằm trong khoảng từ 1 đến 255 ký tự!")
 	@Column(name = "PRODUCT_NAME", unique = true, length = 255)
 	private String name;
 
+	@Length(max = 45, message = "Đơn vị tính phải nhỏ hơn 45 ký tự!")
 	@Column(name = "PRODUCT_UNIT", length = 45)
 	private String unit;
 
+	@NotNull(message = "Vui lòng nhập vào số lượng sản phẩm trong kho!")
 	@Min(value = 0)
-	@Max(value = Long.MAX_VALUE)
+	@Max(value = Long.MAX_VALUE, message = "Tràn số!")
 	@Column(name = "QUANTITY_IN_STOCK")
 	private Integer qtyInStock;
 
+	@Length(max = 255, message = "Đường dẫn quá dài!")
 	@Column(name = "THUMBNAIL", length = 255)
 	private String thumbnail;
 
 	@Column(name = "ENABLED")
 	private Boolean enabled;
 
+	@NotNull(message = "Vui lòng nhập vào giá sản phẩm")
 	@Min(value = 0)
-	@Max(value = Integer.MAX_VALUE)
+	@Max(value = Integer.MAX_VALUE, message = "Tràn số")
 	@Column(name = "PRICE")
 	private Integer price;
 
-	@Column(name = "SHORT_DESCRIPTION", length=255)
+	@Length(min = 0, max = 255, message = "Mô tả phải nhỏ hơn 256 ký tự")
+	@Column(name = "SHORT_DESCRIPTION", length = 255)
 	private String shortDescription;
+
+	@Length(min = 0, max = 255, message = "Bảo hành phải nhỏ hơn 46 ký tự")
+	@Column(name = "WARRANTY", length = 45)
+	private String warranty;
 
 	@Column(name = "CREATED_TIME", insertable = false, updatable = false)
 	private Date createdTime;
@@ -69,7 +80,7 @@ public class Product implements Serializable {
 	@JoinColumn(name = "BRAND_ID")
 	private Brand brand;
 
-	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ProductSpec> productSpecs;
 
 	@JsonIgnore

@@ -7,22 +7,23 @@
 <body>
 	<div layout:fragment="content" class="container pt-5 pb-5">
 		<div class="row">
-			<a th:href="@{/admin/products/add}" id="create-btn"
+			<a th:href="@{/admin/products/create}" id="create-btn"
 				class="btn btn-large btn-primary mb-2"
-				th:text="#{admin.product.button.add}">Thêm mới</a>
+				th:text="#{admin.product.button.add}">Thêm mới sản phẩm</a>
 			<table class="table table-sm table-striped table-bordered">
 				<thead>
 					<tr>
-						<th th:text="#{admin.product.table.column.thumbnail}">Ảnh</th>
+						<th th:text="#{admin.product.table.column.thumbnail}"
+							width="100px">Ảnh</th>
 						<th th:text="#{admin.product.table.column.id}">ID</th>
 						<th th:text="#{admin.product.table.column.name}">Name</th>
 						<th th:text="#{admin.product.table.column.price}">Price</th>
-						<th th:text="#{admin.product.table.column.action}">Action</th>
+						<th th:text="#{admin.product.table.column.action}" width="100px">Action</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="prod : ${products}" th:object="${prod}">
-						<td>
+						<td class="text-center">
 							<img th:src="${prod.thumbnail}" width="60px">
 						</td>
 						<td th:text="*{id}">ID</td>
@@ -31,10 +32,10 @@
 						<td>
 							<a th:text="#{admin.product.button.edit}"
 								th:href="@{/admin/products/update/__*{id}__}"
-								class="btn btn-warning edit-btn">Sửa</a>
+								class="btn btn-warning edit-btn" th:utext="#{icon.edit}">Sửa</a>
 							<button th:text="#{admin.product.button.remove}"
 								th:data-id="*{id}" th:data-name="*{name}"
-								class="btn btn-danger remove-btn">Xóa</button>
+								class="btn btn-danger remove-btn" th:utext="#{icon.remove}">Xóa</button>
 						</td>
 					</tr>
 				</tbody>
@@ -53,32 +54,14 @@
 			</nav>
 		</div>
 
-		<!-- remove modal -->
-		<!-- end remove modal -->
-
+		<!-- modal upload image -->
+		<div th:replace="admin/products/modal :: uploadImage"></div>
+		<!-- modal upload image -->
 	</div>
 
 	<th:block layout:fragment="script">
-		<script>
-			$(document).ready(function() {
-				$(".remove-btn").click(function(e) {
-					e.preventDefault();
-					var verify = confirm("Bạn có muốn xóa sản phẩm này không?");
-					if (verify) {
-						var uri = "/admin/products/delete/";
-						var id = $(this).data("id");
-						var req = uri.concat(id);
-						$.post(req,function(result,	status) {
-							if (result) {
-								alert("Xóa thành công!");
-								location.reload();
-							} else
-								alert("Xóa thất bại!");
-						});
-					}
-				});
-			});
-		</script>
+		<script th:src="@{/js/delete-product.js}"></script>
 	</th:block>
+
 </body>
 </html>

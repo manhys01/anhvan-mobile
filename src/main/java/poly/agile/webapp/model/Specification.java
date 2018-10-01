@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -29,6 +30,7 @@ public class Specification implements Serializable {
 	@Column(name = "SPECIFICATION_ID")
 	private Integer id;
 
+	@NotNull(message="Không được để trống tên thông số kỹ thuật!")
 	@Column(name = "SPECIFICATION_NAME")
 	private String name;
 

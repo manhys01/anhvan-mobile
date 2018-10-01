@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,12 +48,18 @@ public class OrderController {
 	}
 
 	@PostMapping
-	public String order(@ModelAttribute("order") Order order, BindingResult result, HttpSession session) {
+	public String order(@Valid @ModelAttribute("order") Order order, Errors errors, HttpSession session) {
 
-		if (result.hasErrors())
-			return "redirect:/order";
+		if (errors.hasErrors()) {
+			errors.getAllErrors().forEach(e-> System.out.println(e.getDefaultMessage()));
+			return "orders/order";
+		}
 
 		Cart cart = (Cart) session.getAttribute("cart");
+
+		if (cart == null) {
+			return "redirect:/cart/show";
+		}
 
 		User user = null;
 		final List<OrderLine> orderLines = new ArrayList<>();
@@ -71,6 +78,7 @@ public class OrderController {
 			line.setOrder(order);
 			orderLines.add(line);
 		});
+		
 		order.setOrderLines(orderLines);
 		order.setAmount(cart.getAmount());
 		order.setUser(user);
