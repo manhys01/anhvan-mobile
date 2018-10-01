@@ -23,8 +23,39 @@
 						Lorem Ipsum.</p>
 				</div>
 			</div>
-		</div>
-		<div class="container">
+
+			<div class="row">
+				<div class="card-group">
+					<div class="col-lg-3 col-md-4 col-sm-6 mb-4"
+						th:each="prod : ${products}">
+						<div class="card h-100">
+							<div class="card-header">
+								<img class="card-img-top" th:src="@{${prod.thumbnail}}"
+									th:alt="${prod.name}" th:title="${prod.name}">
+							</div>
+							<div class="card-body">
+								<h5 class="card-title" th:text="${prod.name}">Iphone X</h5>
+								<p class="card-text">
+									<span class="badge badge-danger"
+										th:utext="${#numbers.formatInteger(prod.price, 3, 'POINT')} + ' <sup>đ</sup>'">1.000</span>
+								</p>
+								<p class="card-text text-justify"
+									th:text="${prod.shortDescription}">iPhone X mang trên mình
+									thiết kế hoàn toàn mới với màn hình Super Retina viền cực mỏng
+									và trang bị nhiều công nghệ hiện đại như nhận diện khuôn mặt
+									Face ID, sạc pin nhanh và sạc không dây cùng khả năng chống
+									nước bụi cao cấp.</p>
+							</div>
+							<div class="card-footer">
+								<a th:href="@{/products/__${prod.id}__}"
+									class="btn btn-primary btn-block view-detail-btn">Xem chi
+									tiết</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<div class="row">
 				<div class="col-md-4">
 					<h2>Lorem Ipsum</h2>
@@ -45,6 +76,7 @@
 						dummy text ever since the 1500s, when an unknown printer took a</p>
 				</div>
 			</div>
+
 		</div>
 	</section>
 </body>

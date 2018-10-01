@@ -85,4 +85,9 @@ public class BrandController {
 	public Brand getBrand() {
 		return new Brand();
 	}
+	
+	@ModelAttribute("adminProductPage")
+	public boolean active() {
+		return true;
+	}
 }

@@ -3,8 +3,11 @@ package poly.agile.webapp.service.order;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import poly.agile.webapp.dto.OrderDTO;
 import poly.agile.webapp.model.Order;
 import poly.agile.webapp.model.OrderStatus;
 import poly.agile.webapp.repository.OrderRepository;
@@ -12,10 +15,10 @@ import poly.agile.webapp.repository.OrderStatusRepository;
 
 @Service
 public class OrderServiceImpl implements OrderService {
-	
+
 	@Autowired
 	private OrderRepository orderRepository;
-	
+
 	@Autowired
 	private OrderStatusRepository orderStatusRepository;
 
@@ -41,12 +44,17 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List<Order> findAll() {
-		return null;
+		return orderRepository.findAll();
 	}
 
 	@Override
 	public OrderStatus findOrderStatusById(Integer id) {
 		return orderStatusRepository.getOne(id);
+	}
+
+	@Override
+	public Page<OrderDTO> getPages(int page) {
+		return orderRepository.getPages(PageRequest.of(page, 10));
 	}
 
 }

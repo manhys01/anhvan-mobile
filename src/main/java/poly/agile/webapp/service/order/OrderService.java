@@ -1,10 +1,12 @@
 package poly.agile.webapp.service.order;
 
+import poly.agile.webapp.dto.OrderDTO;
 import poly.agile.webapp.model.Order;
 import poly.agile.webapp.model.OrderStatus;
 import poly.agile.webapp.service.BaseService;
+import poly.agile.webapp.service.DTOService;
 
-public interface OrderService extends BaseService<Order, Integer>{
+public interface OrderService extends BaseService<Order, Integer>, DTOService<OrderDTO>{
 	
 	OrderStatus findOrderStatusById(Integer id);
 	

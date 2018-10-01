@@ -20,28 +20,31 @@
 	<div class="container centered">
 		<form th:action="@{/login}" method="post">
 			<h1 class="pb-3">Đăng nhập</h1>
-			
+
+			<div th:if="${loginError}" class="alert alert-danger" role="alert">Tài
+				khoản hoặc mật khẩu không chính xác!</div>
+
 			<div class="form-group">
 				<label for="username">Tài khoản</label>
 				<input id="username" name="username"
 					class="form-control form-control-sm" autofocus="autofocus">
 			</div>
-			
+
 			<div class="form-group">
 				<label for="password">Mật khẩu</label>
 				<input type="password" id="password" name="password"
 					class="form-control form-control-sm">
 			</div>
-			
+
 			<div class="form-group">
 				<input id="rememberMe" type="checkbox" name="remember-me">
 				<label for="rememberMe">Ghi nhớ tài khoản</label>
 			</div>
-			
+
 			<div class="form-group">
 				<button class="btn btn-primary">Đăng nhập</button>
 			</div>
-			
+
 		</form>
 	</div>
 

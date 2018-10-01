@@ -64,22 +64,36 @@ public class UpdateProductController {
 	@PostMapping(params = "removeSpecRow")
 	public String removeSpecRow(@ModelAttribute("product") Product product,
 			@RequestParam("removeSpecRow") Integer rowIndex) {
-		List<ProductSpec> list = product.getProductSpecs();
-		list.remove(rowIndex.intValue());
-		product.setProductSpecs(list);
+		System.err.println("Product specification size: " +product.getProductSpecs().size());
+		product.getProductSpecs().remove(rowIndex.intValue());
 		return "admin/products/update";
 	}
 
-	// fuck
 	@PostMapping(params = "removeSpecDetailRow")
 	public String removeSpecDetailRow(@ModelAttribute("product") Product product,
-			@RequestParam("removeSpecDetailRow") Integer rows) {
+			@RequestParam("removeSpecDetailRow") String values) {
+		String[] rows = values.split(",");
+		
+		int specIndex = Integer.parseInt(rows[0]);
+		int specDetailIndex = Integer.parseInt(rows[1]);
+		
+		ProductSpec productSpec = product.getProductSpecs().get(specIndex);
+		
+		productSpec.getProductSpecDetails().remove(specDetailIndex);
+		
+		if(productSpec.getProductSpecDetails().isEmpty())
+			product.getProductSpecs().remove(specIndex);
+		
+		System.err.println("Product specification size: " +product.getProductSpecs().size());
+		
 		return "admin/products/update";
 	}
 
 	@PostMapping(params = "update")
 	public String update(@ModelAttribute("product") Product product, SessionStatus status) {
 		try {
+			System.err.println("Product specification size: " +product.getProductSpecs().size());
+			
 			productService.update(product);
 			status.setComplete();
 		} catch (DuplicateFieldException e) {

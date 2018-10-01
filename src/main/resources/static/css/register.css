@@ -12,6 +12,6 @@ html {
 
 @media screen and (min-width: 980px) {
 	.centered {
-		max-width: 500px;
+		max-width: 720px;
 	}
 }

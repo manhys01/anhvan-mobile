@@ -25,6 +25,7 @@ public class ProductController {
 		Pagination pagination = new Pagination(pages.getTotalPages(), 10, page);
 		model.addAttribute("products", pages.getContent());
 		model.addAttribute("pagination", pagination);
+		model.addAttribute("adminProductPage", true);
 		return "admin/products/list";
 	}
 

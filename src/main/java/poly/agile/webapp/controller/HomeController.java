@@ -17,6 +17,7 @@ public class HomeController {
 	public String index(Model model) {
 		model.addAttribute("homePage", true);
 		model.addAttribute("lastestProduct", productService.getFiveNewProducts());
+		model.addAttribute("products", productService.getPages(0).getContent());
 		return "index";
 	}
 
