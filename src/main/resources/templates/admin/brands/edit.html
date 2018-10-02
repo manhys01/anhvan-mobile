@@ -5,19 +5,25 @@
 <title>Brand</title>
 </head>
 <body>
-	<div layout:fragment="content" class="container pt-5 pb-5">
-		<h1>Sửa tên thương hiệu</h1>
-		<hr>
-		<form th:action="@{/admin/brands/update}" th:object="${brand}"
-			th:method="post">
-			<div class="form-group">
-				<div>Brand name</div>
-				<input type="text" th:field="*{name}" class="form-control">
-			</div>
-			<div class="form-group">
-				<button class="btn btn-primary">Submit</button>
-			</div>
-		</form>
+	<div layout:fragment="content">
+		<div class="container pt-5 pb-5">
+			<h1>Sửa tên thương hiệu</h1>
+			<hr>
+			<form th:action="@{/admin/brand/__${brand.id}__}"
+				th:object="${brand}" th:method="PUT">
+				<div class="form-group">
+					<div>Tên thương hiệu</div>
+					<input type="text" th:field="*{name}" class="form-control">
+				</div>
+				<div class="form-group">
+					<div>Logo</div>
+					<input type="text" th:field="*{logo}" class="form-control">
+				</div>
+				<div class="form-group">
+					<button class="btn btn-primary">Sửa</button>
+				</div>
+			</form>
+		</div>
 	</div>
 </body>
 </html>

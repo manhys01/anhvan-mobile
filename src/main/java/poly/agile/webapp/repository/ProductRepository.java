@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +21,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	Product findByName(String name);
 
 	Product findByBrand(Brand brand);
-	
+
 	@Query("SELECT new poly.agile.webapp.dto.ProductDTO"
 			+ "(p.id, p.brand.name, p.name, p.price, p.qtyInStock, p.shortDescription, p.thumbnail) "
 			+ "FROM Product p WHERE p.brand.name like :search OR p.name like :search")
@@ -49,4 +50,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 			+ "(p.id, p.brand.name, p.name, p.price, p.qtyInStock, p.shortDescription, p.thumbnail) "
 			+ "FROM Product p WHERE p.id = :id")
 	ProductDTO findProductById(@Param("id") Integer id);
+
+	@Modifying
+	@Query("UPDATE Product p SET p.view = p.view + 1 WHERE p.id= :id")
+	void incrementViewCount(@Param("id") Integer id);
+	
 }

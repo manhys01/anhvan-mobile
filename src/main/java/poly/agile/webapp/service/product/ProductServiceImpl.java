@@ -98,4 +98,9 @@ public class ProductServiceImpl implements ProductService {
 		keyword = "%" + keyword + "%";
 		return repository.findProduct(keyword, PageRequest.of(page - 1, 8));
 	}
+
+	@Override
+	public void  incrementViewCount(Integer id) {
+		repository.incrementViewCount(id);
+	}
 }

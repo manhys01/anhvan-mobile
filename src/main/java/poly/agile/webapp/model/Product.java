@@ -70,6 +70,9 @@ public class Product implements Serializable {
 	@Column(name = "SHORT_DESCRIPTION", length = 255)
 	private String shortDescription;
 
+	@Column(name = "VIEW")
+	private Integer view;
+
 	@Length(min = 0, max = 255, message = "Bảo hành phải nhỏ hơn 46 ký tự")
 	@Column(name = "WARRANTY", length = 45)
 	private String warranty;

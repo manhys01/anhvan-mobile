@@ -7,7 +7,7 @@
 <body>
 	<div layout:fragment="content" class="container pt-5 pb-5">
 		<div class="row">
-			<a th:href="@{/admin/products/create}" id="create-btn"
+			<a th:href="@{/admin/product}" id="create-btn"
 				class="btn btn-large btn-primary mb-2"
 				th:text="#{admin.product.button.add}">Thêm mới sản phẩm</a>
 			<table class="table table-sm table-striped table-bordered">
@@ -36,7 +36,7 @@
 						<td th:text="*{#numbers.formatInteger(price, 3, 'POINT')}">Price</td>
 						<td>
 							<a th:text="#{admin.product.button.edit}"
-								th:href="@{/admin/products/update/__*{id}__}"
+								th:href="@{/admin/product/__*{id}__}"
 								class="btn btn-warning edit-btn" th:utext="#{icon.edit}">Sửa</a>
 							<button th:text="#{admin.product.button.remove}"
 								th:data-id="*{id}" th:data-name="*{name}"

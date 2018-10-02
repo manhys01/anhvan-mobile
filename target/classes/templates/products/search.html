@@ -12,9 +12,9 @@
 			<div th:if="${#lists.isEmpty(products)}">
 				<h1>Không tìm thấy sản phẩm nào!</h1>
 			</div>
-			
+
 			<div th:unless="${#lists.isEmpty(products)}">
-				<h1>Tìm kiếm sản phẩm</h1>
+				<h1>Danh sách sản phẩm</h1>
 				<hr>
 				<div class="card-group row">
 					<div class="col-lg-3 col-md-4 col-sm-6 mb-4"
@@ -52,8 +52,8 @@
 							th:each="control, controlStat: ${pagination.controls}"
 							th:classappend="${control.actived} ? 'active'"><a
 							class="page-link"
-							th:href="${control.page}==1 ? @{/products/search(query=${param.query})} : 
-					@{/products/search(query=${param.query}, page=__${control.page}__)}"
+							th:href="${control.page}==1 ? @{/products(query=${param.find})} : 
+					@{/products(query=${param.find}, page=__${control.page}__)}"
 							th:text="${control.label}">1</a></li>
 					</ul>
 				</nav>

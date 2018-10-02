@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -25,8 +25,8 @@ import poly.agile.webapp.service.brand.BrandService;
 import poly.agile.webapp.service.product.ProductService;
 import poly.agile.webapp.service.specification.SpecificationSerivce;
 
-@Controller
-@RequestMapping(value = { "/admin/products/update/{id}" })
+@Controller	
+@RequestMapping("/admin/product")
 @SessionAttributes(names = { "brands", "specifications", "product" })
 public class UpdateProductController {
 
@@ -39,19 +39,19 @@ public class UpdateProductController {
 	@Autowired
 	private ProductService productService;
 
-	@GetMapping
-	public String edit(@PathVariable("id") Integer id, Model model) {
+	@GetMapping("/{id}")
+	public String form(@PathVariable("id") Integer id, Model model) {
 		model.addAttribute("product", productService.findById(id));
 		return "admin/products/update";
 	}
 
-	@PostMapping(params = "addSpecRow")
+	@PutMapping(value = { "/{id}" }, params = "addSpecRow")
 	public String addSpecRow(@ModelAttribute("product") Product product, @RequestParam("addSpecRow") Integer rowIndex) {
 		addProductSpecificationRow(product);
 		return "admin/products/update";
 	}
 
-	@PostMapping(params = "addSpecDetailRow")
+	@PutMapping(value = { "/{id}" }, params = "addSpecDetailRow")
 	public String addSpecDetailRow(@ModelAttribute("product") Product product,
 			@RequestParam("addSpecDetailRow") Integer rowIndex) {
 		ProductSpec productSpec = product.getProductSpecs().get(rowIndex.intValue());
@@ -61,33 +61,33 @@ public class UpdateProductController {
 		return "admin/products/update";
 	}
 
-	@PostMapping(params = "removeSpecRow")
+	@PutMapping(value= {"/{id}"}, params = "removeSpecRow")
 	public String removeSpecRow(@ModelAttribute("product") Product product,
 			@RequestParam("removeSpecRow") Integer rowIndex) {
-		System.err.println("Product specification size: " +product.getProductSpecs().size());
+		System.err.println("Product specification size: " + product.getProductSpecs().size());
 		product.getProductSpecs().remove(rowIndex.intValue());
 		return "admin/products/update";
 	}
 
-	@PostMapping(params = "removeSpecDetailRow")
+	@PutMapping(value= {"/{id}"}, params = "removeSpecDetailRow")
 	public String removeSpecDetailRow(@ModelAttribute("product") Product product,
 			@RequestParam("removeSpecDetailRow") String values) {
 		String[] rows = values.split(",");
-		
+
 		int specIndex = Integer.parseInt(rows[0]);
 		int specDetailIndex = Integer.parseInt(rows[1]);
-		
+
 		ProductSpec productSpec = product.getProductSpecs().get(specIndex);
-		
+
 		productSpec.getProductSpecDetails().remove(specDetailIndex);
-		
-		if(productSpec.getProductSpecDetails().isEmpty())
+
+		if (productSpec.getProductSpecDetails().isEmpty())
 			product.getProductSpecs().remove(specIndex);
-		
+
 		return "admin/products/update";
 	}
 
-	@PostMapping(params = "update")
+	@PutMapping(value= {"/{id}"}, params = "update")
 	public String update(@ModelAttribute("product") Product product, SessionStatus status) {
 		try {
 			productService.update(product);

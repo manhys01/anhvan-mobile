@@ -49,12 +49,10 @@ public class OrderController {
 
 	@PostMapping
 	public String order(@Valid @ModelAttribute("order") Order order, Errors errors, HttpSession session) {
-
 		if (errors.hasErrors()) {
-			errors.getAllErrors().forEach(e-> System.out.println(e.getDefaultMessage()));
 			return "orders/order";
 		}
-
+		
 		Cart cart = (Cart) session.getAttribute("cart");
 
 		if (cart == null) {
@@ -87,7 +85,7 @@ public class OrderController {
 		// insert to database
 		orderService.create(order);
 
-		// clear cart
+		// clear session cart
 		session.setAttribute("cart", null);
 
 		return "redirect:/";

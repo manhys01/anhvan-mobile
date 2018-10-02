@@ -24,9 +24,12 @@ public class Brand implements Serializable {
 	@Column(name = "BRAND_ID")
 	private Integer id;
 
-	@NotBlank
+	@NotBlank(message = "Tên thương hiệu không được để trống!")
 	@Column(name = "BRAND_NAME", length = 45, unique = true, nullable = false)
 	private String name;
+
+	@Column(name = "LOGO", length = 255)
+	private String logo;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

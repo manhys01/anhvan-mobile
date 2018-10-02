@@ -28,5 +28,7 @@ public interface ProductService extends BaseService<Product, Integer>, DTOServic
 	public Product findProductByName(String name);
 
 	public ProductDTO findProductById(Integer id);
+	
+	public void incrementViewCount(Integer id);
 
 }
