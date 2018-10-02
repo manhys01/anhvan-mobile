@@ -34,12 +34,18 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public boolean remove(Order o) {
-		return false;
+		try {
+			orderRepository.delete(o);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
 	public Order findById(Integer id) {
-		return null;
+		return orderRepository.getOne(id);
 	}
 
 	@Override
@@ -57,6 +63,11 @@ public class OrderServiceImpl implements OrderService {
 		if (page < 1)
 			page = 1;
 		return orderRepository.getPages(PageRequest.of(page - 1, 10));
+	}
+
+	@Override
+	public List<OrderStatus> findAllOrderStatus() {
+		return orderStatusRepository.findAll();
 	}
 
 }

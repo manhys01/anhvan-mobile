@@ -2,6 +2,7 @@ package poly.agile.webapp.controller.admin.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,15 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import poly.agile.webapp.service.user.UserService;
 
 @Controller
-@RequestMapping("/admin/users")
-public class UserListController {
+@RequestMapping("/admin")
+public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
-	@GetMapping
-	public String all() {
-		userService.findAll();
+
+	@GetMapping("/users")
+	public String all(Model model) {
+		model.addAttribute("users", userService.findAll());
 		return "admin/users/list";
 	}
 

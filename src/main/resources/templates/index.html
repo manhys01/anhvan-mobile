@@ -8,6 +8,7 @@
 	<section layout:fragment="content">
 		<div th:replace="~{/home/carousel :: carousel}"></div>
 		<div class="container mt-5 mb-5">
+			
 			<div class="row">
 				<div class="col-12 text-center">
 					<h1>Lorem Ipsum</h1>
@@ -47,7 +48,7 @@
 									nước bụi cao cấp.</p>
 							</div>
 							<div class="card-footer">
-								<a th:href="@{/products/__${prod.id}__}"
+								<a th:href="@{/product/__${prod.id}__}"
 									class="btn btn-primary btn-block view-detail-btn">Xem chi
 									tiết</a>
 							</div>

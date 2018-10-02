@@ -24,12 +24,7 @@
 				<tbody>
 					<tr th:each="prod : ${products}" th:object="${prod}">
 						<td class="text-center">
-							<div style="position: relative;">
-								<img th:src="${prod.thumbnail}" width="60px">
-								<a href="#" style="position: absolute; top: 0; right: 0">
-									<i class="fas fa-edit"></i>
-								</a>
-							</div>
+							<img th:src="${prod.thumbnail}" width="60px">
 						</td>
 						<td th:text="*{id}">ID</td>
 						<td th:text="*{name}">Name</td>
@@ -58,10 +53,6 @@
 				</ul>
 			</nav>
 		</div>
-
-		<!-- modal upload image -->
-		<div th:replace="admin/products/modal :: uploadImage"></div>
-		<!-- modal upload image -->
 	</div>
 
 	<th:block layout:fragment="script">

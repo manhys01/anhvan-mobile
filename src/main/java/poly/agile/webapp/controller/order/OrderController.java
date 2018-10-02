@@ -23,7 +23,7 @@ import poly.agile.webapp.service.order.OrderService;
 import poly.agile.webapp.service.product.ProductService;
 import poly.agile.webapp.service.user.UserService;
 
-@Controller
+@Controller("userOrderController")
 @RequestMapping("/order")
 public class OrderController {
 

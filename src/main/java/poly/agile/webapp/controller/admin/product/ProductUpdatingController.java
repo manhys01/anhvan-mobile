@@ -3,17 +3,15 @@ package poly.agile.webapp.controller.admin.product;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -27,10 +25,10 @@ import poly.agile.webapp.service.brand.BrandService;
 import poly.agile.webapp.service.product.ProductService;
 import poly.agile.webapp.service.specification.SpecificationSerivce;
 
-@Controller
+@Controller	
 @RequestMapping("/admin/product")
 @SessionAttributes(names = { "brands", "specifications", "product" })
-public class CreateProductController {
+public class ProductUpdatingController {
 
 	@Autowired
 	private BrandService brandService;
@@ -41,42 +39,37 @@ public class CreateProductController {
 	@Autowired
 	private ProductService productService;
 
-	@GetMapping
-	public String create() {
-		return "admin/products/create";
+	@GetMapping("/{id}")
+	public String form(@PathVariable("id") Integer id, Model model) {
+		model.addAttribute("product", productService.findById(id));
+		return "admin/products/edit";
 	}
 
-	@GetMapping("/clearForm")
-	public @ResponseBody boolean clear(SessionStatus status) {
-		status.setComplete();
-		return true;
-	}
-
-	@PostMapping(params = "addSpecRow")
+	@PutMapping(value = { "/{id}" }, params = "addSpecRow")
 	public String addSpecRow(@ModelAttribute("product") Product product, @RequestParam("addSpecRow") Integer rowIndex) {
 		addProductSpecificationRow(product);
-		return "admin/products/create";
+		return "admin/products/edit";
 	}
 
-	@PostMapping(params = "addSpecDetailRow")
+	@PutMapping(value = { "/{id}" }, params = "addSpecDetailRow")
 	public String addSpecDetailRow(@ModelAttribute("product") Product product,
 			@RequestParam("addSpecDetailRow") Integer rowIndex) {
 		ProductSpec productSpec = product.getProductSpecs().get(rowIndex.intValue());
 		ProductSpecDetail detail = new ProductSpecDetail();
 		detail.setProductSpec(productSpec);
 		productSpec.getProductSpecDetails().add(detail);
-		return "admin/products/create";
+		return "admin/products/edit";
 	}
 
-	@PostMapping(params = "removeSpecRow")
+	@PutMapping(value= {"/{id}"}, params = "removeSpecRow")
 	public String removeSpecRow(@ModelAttribute("product") Product product,
 			@RequestParam("removeSpecRow") Integer rowIndex) {
 		System.err.println("Product specification size: " + product.getProductSpecs().size());
 		product.getProductSpecs().remove(rowIndex.intValue());
-		return "admin/products/create";
+		return "admin/products/edit";
 	}
 
-	@PostMapping(params = "removeSpecDetailRow")
+	@PutMapping(value= {"/{id}"}, params = "removeSpecDetailRow")
 	public String removeSpecDetailRow(@ModelAttribute("product") Product product,
 			@RequestParam("removeSpecDetailRow") String values) {
 		String[] rows = values.split(",");
@@ -91,31 +84,18 @@ public class CreateProductController {
 		if (productSpec.getProductSpecDetails().isEmpty())
 			product.getProductSpecs().remove(specIndex);
 
-		return "admin/products/create";
+		return "admin/products/edit";
 	}
 
-	@PostMapping(params = "create")
-	public String create(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult,
-			SessionStatus status) {
-		if (bindingResult.hasFieldErrors()) {
-			return "admin/products/create";
-		}
+	@PutMapping(value= {"/{id}"}, params = "update")
+	public String update(@ModelAttribute("product") Product product, SessionStatus status) {
 		try {
-			productService.create(product);
+			productService.update(product);
 			status.setComplete();
-			return "redirect:/admin/products";
 		} catch (DuplicateFieldException e) {
-			bindingResult.rejectValue("name", "product.name", "Trùng tên sản phẩm!");
-			return "admin/products/create";
-		} catch (Exception e) {
 			e.printStackTrace();
-			return "admin/products/create";
 		}
-	}
-
-	@ModelAttribute("product")
-	public Product createProduct() {
-		return new Product();
+		return "redirect:/admin/products";
 	}
 
 	@ModelAttribute("brands")

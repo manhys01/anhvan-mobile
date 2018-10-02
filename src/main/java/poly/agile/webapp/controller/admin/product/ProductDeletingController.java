@@ -11,7 +11,7 @@ import poly.agile.webapp.service.product.ProductService;
 
 @RestController
 @RequestMapping("/admin")
-public class DeleteProductController {
+public class ProductDeletingController {
 
 	@Autowired
 	private ProductService productService;

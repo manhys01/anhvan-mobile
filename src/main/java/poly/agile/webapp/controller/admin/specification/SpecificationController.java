@@ -10,7 +10,7 @@ import poly.agile.webapp.service.specification.SpecificationSerivce;
 
 @Controller
 @RequestMapping("/admin/product/specifications")
-public class SpecificationListController {
+public class SpecificationController {
 
 	@Autowired
 	private SpecificationSerivce specificationSerivce;
