@@ -49,8 +49,11 @@
 						nhận hàng (<span class="text-danger">*</span>)
 					</label>
 					<div class="col-sm-4">
-						<input class="form-control form-control-sm" th:field="*{customerName}">
-						<p th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}">Tên không chính xác</p>
+						<input class="form-control form-control-sm"
+							th:field="*{customerName}"
+							th:classappend="${#fields.hasErrors('customerName')}? 'is-invalid'">
+						<div th:if="${#fields.hasErrors('customerName')}"
+							th:errors="*{customerName}" class="invalid-feedback">Message</div>
 					</div>
 				</div>
 
@@ -59,8 +62,11 @@
 						thoại liên hệ (<span class="text-danger">*</span>)
 					</label>
 					<div class="col-sm-4">
-						<input class="form-control form-control-sm" th:field="*{phoneNumber}">
-						<p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Tên không chính xác</p>
+						<input class="form-control form-control-sm"
+							th:field="*{phoneNumber}"
+							th:classappend="${#fields.hasErrors('phoneNumber')}? 'is-invalid'">
+						<div th:if="${#fields.hasErrors('phoneNumber')}"
+							th:errors="*{phoneNumber}" class="invalid-feedback">Message</div>
 					</div>
 				</div>
 
@@ -69,8 +75,12 @@
 						chỉ nhận hàng (<span class="text-danger">*</span>)
 					</label>
 					<div class="col-sm-4">
-						<textarea cols="5" class="form-control form-control-sm" th:field="*{address}"></textarea>
-						<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Tên không chính xác</p>
+						<textarea cols="5" class="form-control form-control-sm"
+							th:field="*{address}"
+							th:classappend="${#fields.hasErrors('address')}? 'is-invalid'"></textarea>
+
+						<div th:if="${#fields.hasErrors('address')}"
+							th:errors="*{address}" class="invalid-feedback">Message</div>
 					</div>
 				</div>
 
