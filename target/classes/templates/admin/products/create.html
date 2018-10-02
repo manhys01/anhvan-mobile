@@ -2,7 +2,7 @@
 <html xmlns:th="http://wwww.thymeleaf.org" xmlns:layout=""
 	layout:decorate="~{layouts/admin-layout}">
 <head>
-<title>Form</title>
+<title>Thêm sản phẩm</title>
 </head>
 <body>
 	<div layout:fragment="content">
@@ -38,7 +38,7 @@
 					<div class="form-group col-md-3">
 						<label for="inputWarranty">Bảo hành</label>
 						<input id="inputWarranty" class="form-control"
-							placeholder="Bảo hành" th:field="*{warranty}"
+							placeholder="ngày, tháng, năm..." th:field="*{warranty}"
 							th:classappend="${#fields.hasErrors('warranty')}? 'is-invalid'">
 						<div th:if="${#fields.hasErrors('warranty')}"
 							th:errors="*{warranty}" class="invalid-feedback">Message</div>
