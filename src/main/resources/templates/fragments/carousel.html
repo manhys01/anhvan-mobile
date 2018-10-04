@@ -9,10 +9,10 @@
 		<ol class="carousel-indicators">
 			<li data-target="#carouselProduct" th:data-slide-to="${i}"
 				th:class="${i==0}?'active'"
-				th:each="i : ${#numbers.sequence(0, #lists.size(lastestProduct) - 1)}"></li>
+				th:each="i : ${#numbers.sequence(0, #lists.size(top5ProductNewest) - 1)}"></li>
 		</ol>
 		<div class="carousel-inner">
-			<div class="carousel-item" th:each="prod : ${lastestProduct}"
+			<div class="carousel-item" th:each="prod : ${top5ProductNewest}"
 				th:classappend="${prodStat.first}?'active'">
 				<div class="row bg-secondary pt-5 pb-5">
 					<div class="col-5 col-sm-4 col-md-3">

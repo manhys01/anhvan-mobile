@@ -16,10 +16,10 @@ public class HomeController {
 	@GetMapping("/")
 	public String index(Model model) {
 		model.addAttribute("homePage", true);
-		model.addAttribute("lastestProduct", productService.getFiveNewProducts());
-		model.addAttribute("products", productService.getPages(0).getContent());
+		model.addAttribute("top5ProductNewest", productService.findTop5ProductNewest());
+		model.addAttribute("top4ProductMostSell", productService.findTop4ProductMostSell());
+		model.addAttribute("top4ProductMostView", productService.findTop4ProductMostView());
 		return "index";
 	}
-
 
 }

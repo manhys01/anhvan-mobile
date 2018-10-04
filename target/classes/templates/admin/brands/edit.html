@@ -2,22 +2,29 @@
 <html xmlns:th="http://wwww.thymeleaf.org" xmlns:layout=""
 	layout:decorate="~{layouts/admin-layout}">
 <head>
-<title>Brand</title>
+<title>Sửa thương hiệu</title>
 </head>
 <body>
 	<div layout:fragment="content">
 		<div class="container pt-5 pb-5">
-			<h1>Sửa tên thương hiệu</h1>
+			<h1>Sửa thương hiệu</h1>
 			<hr>
 			<form th:action="@{/admin/brand/__${brand.id}__}"
-				th:object="${brand}" th:method="PUT">
+				th:object="${brand}" th:method="PUT" enctype="multipart/form-data">
 				<div class="form-group">
-					<div>Tên thương hiệu</div>
-					<input type="text" th:field="*{name}" class="form-control">
+					<input type="text" th:field="*{name}"
+						class="form-control form-control-sm"
+						th:classappend="${#fields.hasErrors('name')}? 'is-invalid'">
+					<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+						class="invalid-feedback">Lỗi</div>
 				</div>
 				<div class="form-group">
 					<div>Logo</div>
-					<input type="text" th:field="*{logo}" class="form-control">
+					<div>
+						<img th:if="*{logo !=null}" th:src="*{logo}" width="100px">
+					</div>
+					<input type="file" name="image" size="2MB" accept="image/*"
+						placeholder="logo.png">
 				</div>
 				<div class="form-group">
 					<button class="btn btn-primary">Sửa</button>

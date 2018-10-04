@@ -6,79 +6,63 @@
 </head>
 <body>
 	<section layout:fragment="content">
-		<div th:replace="~{/home/carousel :: carousel}"></div>
-		<div class="container mt-5 mb-5">
-			
-			<div class="row">
-				<div class="col-12 text-center">
-					<h1>Lorem Ipsum</h1>
-					<p>Lorem Ipsum is simply dummy text of the printing and
-						typesetting industry. Lorem Ipsum has been the industry's standard
-						dummy text ever since the 1500s, when an unknown printer took a
-						galley of type and scrambled it to make a type specimen book. It
-						has survived not only five centuries, but also the leap into
-						electronic typesetting, remaining essentially unchanged. It was
-						popularised in the 1960s with the release of Letraset sheets
-						containing Lorem Ipsum passages, and more recently with desktop
-						publishing software like Aldus PageMaker including versions of
-						Lorem Ipsum.</p>
-				</div>
-			</div>
+		<div th:replace="~{fragments/carousel :: carousel}"></div>
 
-			<div class="row">
-				<div class="card-group">
-					<div class="col-lg-3 col-md-4 col-sm-6 mb-4"
-						th:each="prod : ${products}">
-						<div class="card h-100">
-							<div class="card-header">
-								<img class="card-img-top" th:src="@{${prod.thumbnail}}"
-									th:alt="${prod.name}" th:title="${prod.name}">
-							</div>
-							<div class="card-body">
-								<h5 class="card-title" th:text="${prod.name}">Iphone X</h5>
-								<p class="card-text">
-									<span class="badge badge-danger"
-										th:utext="${#numbers.formatInteger(prod.price, 3, 'POINT')} + ' <sup>đ</sup>'">1.000</span>
-								</p>
-								<p class="card-text text-justify"
-									th:text="${prod.shortDescription}">iPhone X mang trên mình
-									thiết kế hoàn toàn mới với màn hình Super Retina viền cực mỏng
-									và trang bị nhiều công nghệ hiện đại như nhận diện khuôn mặt
-									Face ID, sạc pin nhanh và sạc không dây cùng khả năng chống
-									nước bụi cao cấp.</p>
-							</div>
-							<div class="card-footer">
-								<a th:href="@{/product/__${prod.id}__}"
-									class="btn btn-primary btn-block view-detail-btn">Xem chi
-									tiết</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+		<div class="p-3"></div>
 
-			<div class="row">
-				<div class="col-md-4">
-					<h2>Lorem Ipsum</h2>
-					<p>Lorem Ipsum is simply dummy text of the printing and
-						typesetting industry. Lorem Ipsum has been the industry's standard
-						dummy text ever since the 1500s, when an unknown printer took a</p>
+		<div class="container">
+
+			<div class="row p-3">
+
+				<div class="col-md-4 pt-3 border">
+					<h2 class="text-success">
+						<i class="fas fa-award"></i> BẢO HÀNH
+					</h2>
+					<p>Sản phẩm được bảo hành chính hãng.</p>
 				</div>
-				<div class="col-md-4">
-					<h2>Lorem Ipsum</h2>
-					<p>Lorem Ipsum is simply dummy text of the printing and
-						typesetting industry. Lorem Ipsum has been the industry's standard
-						dummy text ever since the 1500s, when an unknown printer took a</p>
+
+				<div class="col-md-4 pt-3 border">
+					<h2 class="text-danger">
+						<i class="fas fa-truck"></i> GIAO HÀNG
+					</h2>
+					<p>Giao hàng miễn phí trong nội thành với bán kính 10Km.</p>
 				</div>
-				<div class="col-md-4">
-					<h2>Lorem Ipsum</h2>
-					<p>Lorem Ipsum is simply dummy text of the printing and
-						typesetting industry. Lorem Ipsum has been the industry's standard
-						dummy text ever since the 1500s, when an unknown printer took a</p>
+
+				<div class="col-md-4 pt-3 border">
+					<h2 class="text-primary">
+						<i class="fas fa-spinner"></i> ĐỔI TRẢ
+					</h2>
+					<p>Đổi trả 1 đổi 1 trong 15 ngày nếu có bất kỳ lỗi xuất phát từ
+						nhà sản xuất.</p>
 				</div>
+
 			</div>
 
 		</div>
+
+		<div class="container mt-4">
+			<nav aria-label="breadcrumb" style="width: 100%">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a th:href="@{/}">Trang chủ</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Sản
+						phẩm bán chạy</li>
+				</ol>
+			</nav>
+			<div th:replace="~{fragments/topsell :: topsell}"></div>
+		</div>
+
+
+		<div class="container mt-4">
+			<nav aria-label="breadcrumb" style="width: 100%">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a th:href="@{/}">Trang chủ</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Sản
+						phẩm hot</li>
+				</ol>
+			</nav>
+			<div th:replace="~{fragments/topview :: topview}"></div>
+		</div>
+
 	</section>
 </body>
 </html>

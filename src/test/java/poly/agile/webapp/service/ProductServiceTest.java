@@ -59,7 +59,7 @@ public class ProductServiceTest {
 
 	@Test
 	public void testF_FindProductByBrand() {
-		List<ProductDTO> list = productService.findProductByBrand(brandService.findBrandByName("Xiaomi"), 0)
+		List<ProductDTO> list = productService.findProductsByBrand(brandService.findBrandByName("Xiaomi"), 0)
 				.getContent();
 		assertTrue(list.size() > 0);
 	}
@@ -67,7 +67,7 @@ public class ProductServiceTest {
 	@Test(expected = NullPointerException.class)
 	public void testF_FindProductByBrandNotFound() {
 		Brand brand = brandService.findBrandByName("Xiaomi1");
-		productService.findProductByBrand(brand, 0);
+		productService.findProductsByBrand(brand, 0);
 	}
 	
 	@Test

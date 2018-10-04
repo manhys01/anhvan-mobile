@@ -8,4 +8,5 @@ import poly.agile.webapp.model.OrderLine;
 @Transactional
 public interface OrderLineRepository extends JpaRepository<OrderLine, Integer> {
 
+
 }

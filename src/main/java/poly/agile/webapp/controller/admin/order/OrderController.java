@@ -42,7 +42,6 @@ public class OrderController {
 	@GetMapping("/order/{id}")
 	public String getOrder(Model model, @PathVariable("id") Integer id) {
 		Order order = orderService.findById(id);
-		System.out.println(order);
 		model.addAttribute("order", order);
 		return "admin/orders/edit";
 	}

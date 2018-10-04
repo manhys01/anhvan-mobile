@@ -22,3 +22,7 @@ footer {
 	width: 100%;
 	z-index: 1;
 }
+
+.logo-brand {
+	border: 1px solid black;
+}

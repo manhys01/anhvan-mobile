@@ -16,5 +16,7 @@ public class ProductDTO {
 	private Integer qtyInStock;
 	private String shortDescription;
 	private String thumbnail;
+	private Integer view;
+	private String warranty;
 	
 }

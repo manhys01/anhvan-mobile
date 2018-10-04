@@ -8,6 +8,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import poly.agile.webapp.dto.ProductDTO;
+import poly.agile.webapp.dto.ProductMostSell;
+import poly.agile.webapp.dto.ProductMostView;
+import poly.agile.webapp.dto.ProductNewest;
 import poly.agile.webapp.exception.DuplicateFieldException;
 import poly.agile.webapp.model.Brand;
 import poly.agile.webapp.model.Product;
@@ -17,10 +20,10 @@ import poly.agile.webapp.repository.ProductRepository;
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired
-	private ProductRepository repository;
+	private ProductRepository productRepository;
 
 	public List<Product> findAll() {
-		return repository.findAll();
+		return productRepository.findAll();
 	}
 
 	@Override
@@ -28,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
 		Product product = findProductByName(p.getName());
 		if (product != null)
 			throw new DuplicateFieldException();
-		return repository.save(p);
+		return productRepository.save(p);
 	}
 
 	@Override
@@ -37,13 +40,13 @@ public class ProductServiceImpl implements ProductService {
 		if (product != null)
 			if (!product.getId().equals(p.getId()))
 				throw new DuplicateFieldException();
-		return repository.save(p);
+		return productRepository.save(p);
 	}
 
 	@Override
 	public boolean remove(Product object) {
 		try {
-			repository.delete(object);
+			productRepository.delete(object);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -55,36 +58,57 @@ public class ProductServiceImpl implements ProductService {
 	public Page<ProductDTO> getPages(int page) {
 		if (page <= 0)
 			page = 1;
-		return repository.findProductBy(PageRequest.of(page - 1, 8));
+		return productRepository.findProductBy(PageRequest.of(page - 1, 8));
 	}
 
 	@Override
 	public Product findById(Integer id) {
-		return repository.getOne(id);
+		return productRepository.getOne(id);
 	}
 
 	@Override
-	public List<ProductDTO> getFiveNewProducts() {
-		return repository.findFiveLastestProducts();
+	public List<ProductNewest> findTop5ProductNewest() {
+		return productRepository.findTop5ProductNewest();
+	}
+
+	@Override
+	public List<ProductMostSell> findTop4ProductMostSell() {
+		return productRepository.findTop4ProductMostSell();
+	}
+	
+	@Override
+	public List<ProductMostView> findTop4ProductMostView() {
+		return productRepository.findTop4ProductMostView();
 	}
 
 	@Override
 	public Product findProductByName(String name) {
 		if (name == null)
 			throw new NullPointerException();
-		return repository.findByName(name);
+		return productRepository.findByName(name);
 	}
 
 	@Override
-	public Page<ProductDTO> findProductByBrand(Brand brand, int page) {
+	public Page<ProductDTO> findProductsByBrand(Brand brand, int page) {
 		if (brand == null)
 			throw new NullPointerException();
-		return repository.findProductByBrand(brand, PageRequest.of(page - 1, 8));
+		if (page < 1)
+			page = 1;
+		return productRepository.findProductsByBrand(brand, PageRequest.of(page - 1, 8));
+	}
+
+	@Override
+	public Page<ProductDTO> findProductsByBrandId(Integer id, int page) {
+		if (id == null)
+			throw new NullPointerException("Brand Id is null!");
+		if (page < 1)
+			page = 1;
+		return productRepository.findProductsByBrandId(id, PageRequest.of(page - 1, 8));
 	}
 
 	@Override
 	public ProductDTO findProductById(Integer id) {
-		return repository.findProductById(id);
+		return productRepository.findProductById(id);
 	}
 
 	@Override
@@ -96,11 +120,12 @@ public class ProductServiceImpl implements ProductService {
 			page = 1;
 
 		keyword = "%" + keyword + "%";
-		return repository.findProduct(keyword, PageRequest.of(page - 1, 8));
+		return productRepository.findProduct(keyword, PageRequest.of(page - 1, 8));
 	}
 
 	@Override
-	public void  incrementViewCount(Integer id) {
-		repository.incrementViewCount(id);
+	public void incrementViewCount(Integer id) {
+		productRepository.incrementViewCount(id);
 	}
+
 }

@@ -1,0 +1,16 @@
+package poly.agile.webapp.util;
+
+public class StringUtils {
+	
+	public static String formatProductName(String name) {
+		if(name==null) throw new NullPointerException("Parameter str is null.");
+		name = VNCharacterUtils.removeAccent(name);
+		name = replaceWhiteSpaceWithDash(name);
+		return name;
+	}
+	
+	public static String replaceWhiteSpaceWithDash(String str) {
+		if(str==null) throw new NullPointerException("Parameter str is null.");
+		return str.trim().replaceAll("\\s+", "-");
+	}
+}

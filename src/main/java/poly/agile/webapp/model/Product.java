@@ -15,11 +15,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -47,11 +46,19 @@ public class Product implements Serializable {
 	@Column(name = "PRODUCT_UNIT", length = 45)
 	private String unit;
 
-	@NotNull(message = "Vui lòng nhập vào số lượng sản phẩm trong kho!")
-	@Min(value = 0)
-	@Max(value = Long.MAX_VALUE, message = "Tràn số!")
+	@NotNull(message="Vui lòng nhập vào số lượng sản phẩm")
+	@Range(min = 0, max = 5000, message = "Số lượng trong khoảng từ 0 - 5000")
 	@Column(name = "QUANTITY_IN_STOCK")
 	private Integer qtyInStock;
+
+	@NotNull(message="Vui lòng nhập vào giá sản phẩm")
+	@Range(min = 0, max = 100000000, message = "Giá trong khoảng từ 0 - 100 triệu")
+	@Column(name = "PRICE")
+	private Integer price;
+
+	@Length(min = 0, max = 255, message = "Mô tả phải nhỏ hơn 256 ký tự")
+	@Column(name = "SHORT_DESCRIPTION", length = 255)
+	private String shortDescription;
 
 	@Length(max = 255, message = "Đường dẫn quá dài!")
 	@Column(name = "THUMBNAIL", length = 255)
@@ -60,17 +67,7 @@ public class Product implements Serializable {
 	@Column(name = "ENABLED")
 	private Boolean enabled;
 
-	@NotNull(message = "Vui lòng nhập vào giá sản phẩm")
-	@Min(value = 0)
-	@Max(value = Integer.MAX_VALUE, message = "Tràn số")
-	@Column(name = "PRICE")
-	private Integer price;
-
-	@Length(min = 0, max = 255, message = "Mô tả phải nhỏ hơn 256 ký tự")
-	@Column(name = "SHORT_DESCRIPTION", length = 255)
-	private String shortDescription;
-
-	@Column(name = "VIEW")
+	@Column(name = "VIEW", insertable = false)
 	private Integer view;
 
 	@Length(min = 0, max = 255, message = "Bảo hành phải nhỏ hơn 46 ký tự")

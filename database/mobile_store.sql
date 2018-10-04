@@ -29,7 +29,8 @@ CREATE TABLE `brand` (
   `BRAND_NAME` varchar(45) NOT NULL,
   `LOGO` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`BRAND_ID`),
-  UNIQUE KEY `BRAND_NAME_UNIQUE` (`BRAND_NAME`)
+  UNIQUE KEY `BRAND_NAME_UNIQUE` (`BRAND_NAME`),
+  KEY `BRAND_ID` (`BRAND_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -39,7 +40,7 @@ CREATE TABLE `brand` (
 
 LOCK TABLES `brand` WRITE;
 /*!40000 ALTER TABLE `brand` DISABLE KEYS */;
-INSERT INTO `brand` VALUES (1,'Apple',NULL),(2,'Samsung',NULL),(3,'Oppo',NULL),(4,'Sony',NULL),(5,'Xiaomi',NULL);
+INSERT INTO `brand` VALUES (1,'Apple','/images/brands/Apple.png'),(2,'Samsung','/images/brands/Samsung.png'),(3,'Oppo','/images/brands/Oppo.png'),(4,'Sony','/images/brands/Sony.png'),(5,'Xiaomi','/images/brands/Xiaomi.png');
 /*!40000 ALTER TABLE `brand` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -62,11 +63,12 @@ CREATE TABLE `order` (
   `UPDATED_TIME` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `UPDATED_BY` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ORDER_ID`),
+  KEY `ORDER_ID` (`ORDER_ID`),
   KEY `fk_Order_User1_idx` (`USER_ID`),
   KEY `fk_Order_Order_Status1_idx` (`ORDER_STATUS_ID`),
   CONSTRAINT `fk_Order_Order_Status1` FOREIGN KEY (`ORDER_STATUS_ID`) REFERENCES `order_status` (`order_status_id`),
   CONSTRAINT `fk_Order_User1` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,6 +77,7 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
+INSERT INTO `order` VALUES (1,2,5,'Nguyễn Đức Mạnh','091231234','Số 8, ngõ 299, phố Dịch Vọng, Hà Nội',16980000,'2018-10-04 15:43:37','2018-10-04 15:57:55','ADMIN'),(2,1,5,'Đỗ Duy Mậu','0969216532','số 95, Cổ Nhuế, Hà Nội',34790000,'2018-10-04 15:45:47','2018-10-04 15:57:55','ADMIN'),(3,1,5,'Việt Hà','012931231','Phố Cổ, Hà Nội',8490000,'2018-10-04 15:54:40','2018-10-04 15:57:55','ADMIN'),(4,1,5,'Duy Tuấn','012319231','Số 10, Đường Nguyễn Khang, Cầu Giấy, Hà Nội',8650000,'2018-10-04 15:55:19','2018-10-04 15:57:55','ADMIN'),(5,1,5,'Linh Phạm','012931231','Số 20, Mai Dịch, Hà Nội',11990000,'2018-10-04 15:56:01','2018-10-04 15:57:55','ADMIN');
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -91,11 +94,12 @@ CREATE TABLE `order_line` (
   `PRODUCT_ID` int(11) unsigned NOT NULL,
   `QUANTITY` smallint(6) NOT NULL,
   PRIMARY KEY (`ODER_LINE_ID`),
+  KEY `ODER_LINE_ID` (`ODER_LINE_ID`),
   KEY `fk_Order_Line_Order1_idx` (`ORDER_ID`),
   KEY `fk_Order_Line_Product1_idx` (`PRODUCT_ID`),
   CONSTRAINT `fk_Order_Line_Order1` FOREIGN KEY (`ORDER_ID`) REFERENCES `order` (`order_id`),
   CONSTRAINT `fk_Order_Line_Product1` FOREIGN KEY (`PRODUCT_ID`) REFERENCES `product` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,6 +108,7 @@ CREATE TABLE `order_line` (
 
 LOCK TABLES `order_line` WRITE;
 /*!40000 ALTER TABLE `order_line` DISABLE KEYS */;
+INSERT INTO `order_line` VALUES (1,1,6,2),(2,2,1,1),(3,3,6,1),(4,4,4,1),(5,5,9,1);
 /*!40000 ALTER TABLE `order_line` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -118,8 +123,9 @@ CREATE TABLE `order_status` (
   `ORDER_STATUS_ID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `ORDER_STATUS_NAME` varchar(45) NOT NULL,
   PRIMARY KEY (`ORDER_STATUS_ID`),
-  UNIQUE KEY `ORDER_STATUS_NAME_UNIQUE` (`ORDER_STATUS_NAME`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `ORDER_STATUS_NAME_UNIQUE` (`ORDER_STATUS_NAME`),
+  KEY `ORDER_STATUS_ID` (`ORDER_STATUS_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,7 +134,7 @@ CREATE TABLE `order_status` (
 
 LOCK TABLES `order_status` WRITE;
 /*!40000 ALTER TABLE `order_status` DISABLE KEYS */;
-INSERT INTO `order_status` VALUES (1,'Chờ xác nhận'),(5,'Hoàn tất'),(4,'Đã thanh toán'),(2,'Đã xác nhận'),(3,'Đang giao hàng');
+INSERT INTO `order_status` VALUES (1,'Chờ xác nhận'),(5,'Hoàn tất'),(6,'Hủy'),(4,'Đã thanh toán'),(2,'Đã xác nhận'),(3,'Đang giao hàng');
 /*!40000 ALTER TABLE `order_status` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -154,6 +160,7 @@ CREATE TABLE `product` (
   `CREATED_TIME` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`PRODUCT_ID`),
   UNIQUE KEY `PRODUCT_NAME_UNIQUE` (`PRODUCT_NAME`),
+  KEY `PRODUCT_ID` (`PRODUCT_ID`),
   KEY `fk_Product_Brand1_idx` (`BRAND_ID`),
   CONSTRAINT `fk_Product_Brand1` FOREIGN KEY (`BRAND_ID`) REFERENCES `brand` (`brand_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
@@ -165,7 +172,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,1,'iPhone X 256GB Gray',12,34790000,'Chiếc','/images/products/apple/iphone-x-256gb.png','iPhone X mang trên mình thiết kế hoàn toàn mới với màn hình Super Retina viền cực mỏng và trang bị nhiều công nghệ hiện đại như nhận diện khuôn mặt Face ID, sạc pin nhanh và sạc không dây cùng khả năng chống nước bụi cao cấp.',NULL,NULL,1,'2018-09-24 08:27:39'),(2,1,'iPhone X 64GB Silver',32,29990000,'Chiếc','/images/products/apple/iphone-x-64gb-silver.png','iPhone X là cụm từ được rất nhiều người mong chờ muốn biết và tìm kiếm trên Google bởi đây là chiếc điện thoại mà Apple kỉ niệm 10 năm iPhone đầu tiên được bán ra.',NULL,NULL,1,'2018-09-24 08:27:39'),(3,2,'Samsung Galaxy A6 (2018)',55,5490000,'Chiếc','/images/products/samsung/samsung-galaxy-a6-2018.png','Samsung Galaxy A6 (2018) là chiếc smartphone tầm trung vừa được ra mắt của Samsung bên cạnh chiếc Samsung Galaxy A6+ (2018).',NULL,NULL,1,'2018-09-24 08:27:39'),(4,2,'Samsung Note 5',33,8650000,'Chiếc','/images/products/samsung/samsung-galaxy-note-5.png','Samsung Galaxy Note 9 mang trong mình hàng hoạt các thay đổi đột phá với điểm nhấn đặc biệt đến từ chiếc bút S-Pen thần thánh cùng một viên pin dung lượng khổng lồ tới 4.000 mAh.',NULL,NULL,1,'2018-09-24 08:27:39'),(5,2,'Samsung Galaxy J6',43,4790000,'Chiếc','/images/products/samsung/samsung-galaxy-j6-2018.png','Trong phân khúc smartphone tầm trung, Samsung Galaxy J6 là cái tên tiếp theo được nhắc đến với một thiết kế đẹp, hiệu năng tốt và có màn hình 18.5:9 thời thượng.',NULL,NULL,1,'2018-09-24 08:27:39'),(6,3,'OPPO F9 6GB',66,8490000,'Chiếc','/images/products/oppo/oppo-f9-6gb.png','Là chiếc điện thoại OPPO được nâng cấp cấu hình, cụ thể là RAM lên tới 6 GB, OPPO F9 6GB còn trang bị nhiều tính năng đột phá như sở hữu công nghệ sạc VOOC mới nhất, mặt lưng chuyển màu độc đáo.',NULL,NULL,1,'2018-09-24 08:27:39'),(7,3,'OPPO Find X',99,20990000,'Chiếc','/images/products/oppo/oppo-find-x-2.png','OPPO Find X tạo nên một cú hích lớn trong làng smartphone hiện nay khi mang trong mình nhiều tính năng đột phá mà nổi bật nhất đến từ thiết kế sáng tạo và một hiệu năng đỉnh cao.',NULL,NULL,1,'2018-09-24 08:27:39'),(8,3,'OPPO F7 128GB',56,8990000,'Chiếc','/images/products/oppo/oppo-f7-128gb-den.png','Tiếp nối sự thành công của OPPO F5 thì OPPO tiếp tục giới thiệu OPPO F7 128GB với mức giá tương đương nhưng mang trong mình thiết kế hoàn toàn mới cũng nhiều cải tiến đáng giá.',NULL,NULL,1,'2018-09-24 08:27:39'),(9,4,'Sony Xperia XZ2',44,11990000,'Chiếc','/images/products/sony/sony-xperia-xz2.png','Tiếp nối sự thành công của OPPO F5 thì OPPO tiếp tục giới thiệu OPPO F7 128GB với mức giá tương đương nhưng mang trong mình thiết kế hoàn toàn mới cũng nhiều cải tiến đáng giá.',NULL,NULL,1,'2018-09-24 08:27:39'),(10,4,'Sony Xperia XZ Dual',43,9990000,'Chiếc','/images/products/sony/sony-xperia-xz2.png','Sony Xperia XZ Dual với thiết kế cực đẹp, cùng camera chất lượng hơn, nhiều tính năng tiện ích hơn.',NULL,NULL,1,'2018-09-24 08:27:39'),(11,4,'Sony Xperia XZ1',65,8990000,'Chiếc','/images/products/sony/sony-xperia-xz1-xanh.png','Sony Xperia XZ1 là mẫu flagship kế tiếp của Sony tiếp nối sự thành công của chiếc Xperia XZs đã ra mắt trước đó với những nâng cấp nhẹ về mặt cấu hình và thiết kế.',NULL,NULL,1,'2018-09-24 08:27:39'),(12,5,'Xiaomi Mi 8',12,12990000,'Chiếc','/images/products/xiaomi/xiaomi-mi-8-black.png','Xiaomi Mi 8 sẽ là cái tên được nhắc đến nhiều trong gia đình Xiaomi khi mang trong mình đầy đủ những gì gọi là cao cấp đến từ vẻ đẹp bên ngoài cũng như phần cứng mạnh mẽ bên trong.',NULL,NULL,1,'2018-09-24 08:27:39'),(13,5,'Xiaomi Mi A2',34,6690000,'Chiếc','/images/products/xiaomi/xiaomi-a2.png','Tiếp nối sự thành công của Xiaomi Mi A1 thì Xiaomi tiếp tục giới thiệu tới người dùng phiên bản kế nhiệm là chiếc Xiaomi Mi A2 với nâng cấp mạnh mẽ về cấu hình cũng như camera.',NULL,NULL,1,'2018-09-24 08:27:39'),(14,5,'Xiaomi Redmi Note 5',77,5690000,'Chiếc','/images/products/xiaomi/xiaomi-redmi-note-5-pro.png','Xiaomi Redmi Note 5 là smartphone thứ ba trong phân khúc tầm trung - giá rẻ của Xiaomi sở hữu màn hình tỉ lệ mới 18:9.',NULL,NULL,1,'2018-09-24 08:27:39');
+INSERT INTO `product` VALUES (1,1,'iPhone X 256GB Gray',12,34790000,'Chiếc','/images/products/apple/iphone-x-256gb.png','iPhone X mang trên mình thiết kế hoàn toàn mới với màn hình Super Retina viền cực mỏng và trang bị nhiều công nghệ hiện đại như nhận diện khuôn mặt Face ID, sạc pin nhanh và sạc không dây cùng khả năng chống nước bụi cao cấp.','12 tháng',7737,1,'2018-09-24 08:27:39'),(2,1,'iPhone X 64GB Silver',32,29990000,'Chiếc','/images/products/apple/iphone-x-64gb-silver.png','iPhone X là cụm từ được rất nhiều người mong chờ muốn biết và tìm kiếm trên Google bởi đây là chiếc điện thoại mà Apple kỉ niệm 10 năm iPhone đầu tiên được bán ra.','12 tháng',124,1,'2018-09-24 08:27:39'),(3,2,'Samsung Galaxy A6 (2018)',55,5490000,'Chiếc','/images/products/samsung/samsung-galaxy-a6-2018.png','Samsung Galaxy A6 (2018) là chiếc smartphone tầm trung vừa được ra mắt của Samsung bên cạnh chiếc Samsung Galaxy A6+ (2018).','12 tháng',53,1,'2018-09-24 08:27:39'),(4,2,'Samsung Note 5',33,8650000,'Chiếc','/images/products/samsung/samsung-galaxy-note-5.png','Samsung Galaxy Note 9 mang trong mình hàng hoạt các thay đổi đột phá với điểm nhấn đặc biệt đến từ chiếc bút S-Pen thần thánh cùng một viên pin dung lượng khổng lồ tới 4.000 mAh.','12 tháng',663,1,'2018-09-24 08:27:39'),(5,2,'Samsung Galaxy J6',43,4790000,'Chiếc','/images/products/samsung/samsung-galaxy-j6-2018.png','Trong phân khúc smartphone tầm trung, Samsung Galaxy J6 là cái tên tiếp theo được nhắc đến với một thiết kế đẹp, hiệu năng tốt và có màn hình 18.5:9 thời thượng.','12 tháng',13,1,'2018-09-24 08:27:39'),(6,3,'OPPO F9 6GB',66,8490000,'Chiếc','/images/products/oppo/oppo-f9-6gb.png','Là chiếc điện thoại OPPO được nâng cấp cấu hình, cụ thể là RAM lên tới 6 GB, OPPO F9 6GB còn trang bị nhiều tính năng đột phá như sở hữu công nghệ sạc VOOC mới nhất, mặt lưng chuyển màu độc đáo.','12 tháng',5236,1,'2018-09-24 08:27:39'),(7,3,'OPPO Find X',99,20990000,'Chiếc','/images/products/oppo/oppo-find-x-2.png','OPPO Find X tạo nên một cú hích lớn trong làng smartphone hiện nay khi mang trong mình nhiều tính năng đột phá mà nổi bật nhất đến từ thiết kế sáng tạo và một hiệu năng đỉnh cao.','12 tháng',552,1,'2018-09-24 08:27:39'),(8,3,'OPPO F7 128GB',56,8990000,'Chiếc','/images/products/oppo/oppo-f7-128gb-den.png','Tiếp nối sự thành công của OPPO F5 thì OPPO tiếp tục giới thiệu OPPO F7 128GB với mức giá tương đương nhưng mang trong mình thiết kế hoàn toàn mới cũng nhiều cải tiến đáng giá.','12 tháng',563,1,'2018-09-24 08:27:39'),(9,4,'Sony Xperia XZ2',44,11990000,'Chiếc','/images/products/sony/sony-xperia-xz2.png','Tiếp nối sự thành công của OPPO F5 thì OPPO tiếp tục giới thiệu OPPO F7 128GB với mức giá tương đương nhưng mang trong mình thiết kế hoàn toàn mới cũng nhiều cải tiến đáng giá.','12 tháng',235,1,'2018-09-24 08:27:39'),(10,4,'Sony Xperia XZ Dual',43,9990000,'Chiếc','/images/products/sony/sony-xperia-xz2.png','Sony Xperia XZ Dual với thiết kế cực đẹp, cùng camera chất lượng hơn, nhiều tính năng tiện ích hơn.','12 tháng',534,1,'2018-09-24 08:27:39'),(11,4,'Sony Xperia XZ1',65,8990000,'Chiếc','/images/products/sony/sony-xperia-xz1-xanh.png','Sony Xperia XZ1 là mẫu flagship kế tiếp của Sony tiếp nối sự thành công của chiếc Xperia XZs đã ra mắt trước đó với những nâng cấp nhẹ về mặt cấu hình và thiết kế.','12 tháng',1235,1,'2018-09-24 08:27:39'),(12,5,'Xiaomi Mi 8',12,12990000,'Chiếc','/images/products/xiaomi/xiaomi-mi-8-black.png','Xiaomi Mi 8 sẽ là cái tên được nhắc đến nhiều trong gia đình Xiaomi khi mang trong mình đầy đủ những gì gọi là cao cấp đến từ vẻ đẹp bên ngoài cũng như phần cứng mạnh mẽ bên trong.','12 tháng',5345,1,'2018-09-24 08:27:39'),(13,5,'Xiaomi Mi A2',34,6690000,'Chiếc','/images/products/xiaomi/xiaomi-a2.png','Tiếp nối sự thành công của Xiaomi Mi A1 thì Xiaomi tiếp tục giới thiệu tới người dùng phiên bản kế nhiệm là chiếc Xiaomi Mi A2 với nâng cấp mạnh mẽ về cấu hình cũng như camera.','12 tháng',123,1,'2018-09-24 08:27:39'),(14,5,'Xiaomi Redmi Note 5',77,5690000,'Chiếc','/images/products/xiaomi/xiaomi-redmi-note-5-pro.png','Xiaomi Redmi Note 5 là smartphone thứ ba trong phân khúc tầm trung - giá rẻ của Xiaomi sở hữu màn hình tỉ lệ mới 18:9.','12 tháng',1235,1,'2018-09-24 08:27:39');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -181,6 +188,7 @@ CREATE TABLE `product_spec` (
   `PRODUCT_ID` int(11) unsigned NOT NULL,
   `SPECIFICATION_ID` int(11) unsigned NOT NULL,
   PRIMARY KEY (`PROD_SPEC_ID`),
+  KEY `PROD_SPEC_ID` (`PROD_SPEC_ID`),
   KEY `fk_Product_spec_Product1_idx` (`PRODUCT_ID`),
   KEY `fk_product_spec_specification1_idx` (`SPECIFICATION_ID`),
   CONSTRAINT `fk_Product_spec_Product1` FOREIGN KEY (`PRODUCT_ID`) REFERENCES `product` (`product_id`),
@@ -211,6 +219,7 @@ CREATE TABLE `product_spec_detail` (
   `PROD_SPEC_NAME` varchar(255) NOT NULL,
   `PROD_SPEC_VALUE` varchar(1000) NOT NULL,
   PRIMARY KEY (`PROD_SPEC_DETAIL_ID`),
+  KEY `PROD_SPEC_DETAIL_ID` (`PROD_SPEC_DETAIL_ID`),
   KEY `fk_Product_Spec_Detail_Product_Spec1_idx` (`PROD_SPEC_ID`),
   CONSTRAINT `fk_Product_Spec_Detail_Product_Spec1` FOREIGN KEY (`PROD_SPEC_ID`) REFERENCES `product_spec` (`prod_spec_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=206 DEFAULT CHARSET=utf8;
@@ -237,7 +246,8 @@ CREATE TABLE `role` (
   `ROLE_ID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `ROLE_NAME` varchar(45) NOT NULL,
   PRIMARY KEY (`ROLE_ID`),
-  UNIQUE KEY `ROLE_NAME_UNIQUE` (`ROLE_NAME`)
+  UNIQUE KEY `ROLE_NAME_UNIQUE` (`ROLE_NAME`),
+  KEY `ROLE_ID` (`ROLE_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -297,14 +307,12 @@ CREATE TABLE `user` (
   `ENABLED` tinyint(1) NOT NULL,
   `CREATED_TIME` datetime DEFAULT CURRENT_TIMESTAMP,
   `UPDATED_TIME` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `ROLE_ID` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`USER_ID`),
   UNIQUE KEY `USERNAME_UNIQUE` (`USERNAME`),
   UNIQUE KEY `EMAIL_UNIQUE` (`EMAIL`),
   UNIQUE KEY `PHONE_NUMBER_UNIQUE` (`PHONE_NUMBER`),
-  KEY `fk_user_Role_idx` (`ROLE_ID`),
-  CONSTRAINT `fk_user_Role` FOREIGN KEY (`ROLE_ID`) REFERENCES `role` (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  KEY `USER_ID` (`USER_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -313,7 +321,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'default','$2a$10$6VHwMEvlqlwrQqO8Zz2cL.cn0zx85bVJtB1/VnS2tzR4EP9sCVDzK','',NULL,'','',NULL,NULL,0,'2018-09-13 22:17:52','2018-09-28 15:25:50',2),(2,'admin','$2a$10$prp0B1bOxdTPPuh9RnMBkOBLMJfDM8EDN6HwP0.p6HpeoYRENRe/m','manhnd.695@gmail.com',NULL,'','0912831231',NULL,NULL,1,'2018-09-13 22:19:38','2018-09-28 15:25:50',1),(3,'manhnd','$2a$10$HsQ2DMugUnPdCo09BmG74eliYz6jaPT3Oq0GdNfeuYr6xUwZ6ajge','manhnd.yoshi@gmail.com',NULL,'Bắc Ninh','0912831232',NULL,1,1,'2018-09-13 22:20:19','2018-09-28 15:25:50',2);
+INSERT INTO `user` VALUES (1,'default','$2a$10$6VHwMEvlqlwrQqO8Zz2cL.cn0zx85bVJtB1/VnS2tzR4EP9sCVDzK','',NULL,'','',NULL,NULL,0,'2018-09-13 22:17:52','2018-09-28 15:25:50'),(2,'admin','$2a$10$prp0B1bOxdTPPuh9RnMBkOBLMJfDM8EDN6HwP0.p6HpeoYRENRe/m','manhnd.695@gmail.com',NULL,'','0912831231',NULL,NULL,1,'2018-09-13 22:19:38','2018-09-28 15:25:50'),(3,'manhnd','$2a$10$HsQ2DMugUnPdCo09BmG74eliYz6jaPT3Oq0GdNfeuYr6xUwZ6ajge','manhnd.yoshi@gmail.com',NULL,'Bắc Ninh','0912831232',NULL,1,1,'2018-09-13 22:20:19','2018-09-28 15:25:50'),(4,'hadhv','$2a$10$mcq9ysVbS5T009lArPrrCOCQpLmzGQFSg5T7kUqo5n7AvLGr.BgFq','a',NULL,NULL,'0912831233',NULL,NULL,1,'2018-10-03 03:16:07','2018-10-03 03:16:07'),(5,'maudd','$2a$10$Msu4hKskD.om3S5PNeWv9ezRl.vUNL4/0SW4eRsF5KB.mkJJgRZRS','b',NULL,NULL,'0912831234',NULL,NULL,1,'2018-10-03 03:16:07','2018-10-03 03:16:07'),(6,'linhpv','$2a$10$aCfZjamRcssNxemA.CWXRua8N0ZlQS7vF614mNls.UGuZN1jofz9C','c',NULL,NULL,'0912831235',NULL,NULL,1,'2018-10-03 03:16:07','2018-10-03 03:16:07'),(7,'tuannd','$2a$10$WQK9iM4SLnM.hWebBhrtIeok/T8r5X6nYIixTiOClT39fyVtDBSK2','d',NULL,NULL,'0912831236',NULL,NULL,1,'2018-10-03 03:16:07','2018-10-03 03:16:07'),(8,'duongdk','$2a$10$P00WVANkp2FaOe6olFygrOONUGamC.dqH6uTPF3YSdpt5zXk.U8c6','e',NULL,NULL,'0912831237',NULL,NULL,1,'2018-10-03 03:16:07','2018-10-03 03:16:07');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -340,7 +348,7 @@ CREATE TABLE `user_role` (
 
 LOCK TABLES `user_role` WRITE;
 /*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
-INSERT INTO `user_role` VALUES (2,1),(1,2),(2,2),(3,2);
+INSERT INTO `user_role` VALUES (2,1),(4,1),(1,2),(2,2),(3,2),(4,2),(5,2),(6,2),(7,2),(8,2);
 /*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -353,4 +361,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-02 22:07:29
+-- Dump completed on 2018-10-04 15:58:59
